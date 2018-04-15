@@ -1,7 +1,7 @@
 package ObjetosNegocio;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Date;
 
 /**
@@ -11,70 +11,78 @@ import java.util.Date;
 public class Receta {
 
     protected String Diagnostico;
-    protected ArrayList medicamentos;
+    protected String tratamiento;
     protected Date fecha;
-    //protected Medico doc;
-    protected Paciente paciente;
-    protected int folioReceta = 1;
-
-    public Receta(String descripcion, Date fecha, Paciente paciente) {
-        this.Diagnostico = descripcion;
+    
+    protected  int folio;
+public Receta(int folio, Date fecha) {
+        this.folio=folio;
         this.fecha = fecha;
-        this.paciente = paciente;
-        folioReceta++;
+        
+        
     }
-
-    public Receta(Date fecha, Paciente paciente) {
+    public Receta(int folio,String diagnostico, Date fecha,String tratamiento) {
+        this.folio=folio;
+        this.Diagnostico = diagnostico;
         this.fecha = fecha;
-        this.paciente = paciente;
-        medicamentos = new ArrayList<>();
-        folioReceta++;
+        
+        this.tratamiento=tratamiento;
+        
+        
     }
+public Receta(Receta receta){
+    this.folio=receta.getFolio();
+        this.Diagnostico = receta.getDianostico();
+        this.fecha = receta.getFecha();
+        
+        this.tratamiento=receta.getTratamiento();
+}
+    
 
-    public void agregarMedicamento(String medicamento) {
-        medicamentos.add(medicamento);
-    }
-
-    public void agregarMedicamento(String[] medicamentos) {
-        this.medicamentos.addAll(Arrays.asList(medicamentos));
-    }
-
-    public String getDescripcion() {
-        return Diagnostico;
-    }
-
-    public ArrayList getMedicamentos() {
-        return medicamentos;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
+    public void setFolioReceta(int folio) {
+        this.folio = folio;
     }
 
     public int getFolio() {
-        return folioReceta;
+        return folio;
+    }
+public void setDiagnostico(String diagnostico) {
+        this.Diagnostico = diagnostico;
+    }
+    public String getDianostico() {
+        return Diagnostico;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.Diagnostico = descripcion;
-    }
-
-    public void setFecha(Date fecha) {
+   public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public Date getFecha() {
+        return fecha;
     }
+   
+    public void setTratamiento(String tratamiento) {
+        this.tratamiento = tratamiento;
+    }
+    public String getTratamiento() {
+        return tratamiento;
+    }
+    
+    public boolean agregarServicio(ArrayList<Servicio> listaServicios){
+        return listaServicios.addAll(listaServicios);
+    }
+    
+    public boolean equals(Receta receta){
+       return folio == receta.getFolio();
+    }
+
+    
+
+    
 
     @Override
     public String toString() {
 
-        return "Folio=" + folioReceta + "\nFecha=" + fecha + "\nPaciente=" + paciente + "Diagnostico: " + Diagnostico + "\nMedicamentos: " + medicamentos.toString();
+        return folio + ", " + fecha + ", " + Diagnostico+", " + tratamiento;
     }
 
 }
