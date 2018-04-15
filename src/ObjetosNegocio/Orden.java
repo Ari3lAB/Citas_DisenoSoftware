@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aber;
+package ObjetosNegocio;
 
 /**
  *
- * @author 1024zettabytes
+ * @author Ariiel AB
  */
-public class qlo {
+public class Orden {
     
 }
