@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package InferfazUsuario.sistemaImpresionGUI;
+package InferfazUsuario;
 
+import ModuloControl.ControlFaçade;
 import SistemaImpresion.ControlImpresion;
 import javax.swing.JOptionPane;
 
@@ -17,13 +18,13 @@ public class FrmImpresor extends javax.swing.JFrame {
     /**
      * Creates new form FrmImpresor
      */
-    private ControlImpresion control;
+    private ControlFaçade control = ControlFaçade.getInstance();
 
     public FrmImpresor() {
         initComponents();
         setLocationRelativeTo(null);
-        control = new ControlImpresion("hola\nwey\nYA SALIO");
-        areaTexto.setText(control.getReceta());
+        //areaTexto.setText(control.muestraReceta());
+        
     }
 
     /**
@@ -104,6 +105,11 @@ public class FrmImpresor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        try {
+            areaTexto.print();
+        } catch (java.awt.print.PrinterException ex) {      //Codigo para imprimir cualquier text area con el formato en que esté
+            ex.printStackTrace();
+        }
         JOptionPane.showMessageDialog(this, "Imprimiendo");
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
