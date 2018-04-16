@@ -2,6 +2,7 @@ package InferfazUsuario;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import javax.swing.JFrame;
 
 /**
  *
@@ -47,7 +48,8 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
         nombrejTextField = new javax.swing.JTextField();
         jRadioButtonNss = new javax.swing.JRadioButton();
         jRadioButtonNombre = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonAceptar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,10 +81,18 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.setEnabled(false);
+        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAceptarActionPerformed(evt);
+            }
+        });
+
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
             }
         });
 
@@ -91,19 +101,20 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButtonNombre)
-                            .addComponent(jRadioButtonNss)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nssjTextField)
-                                .addComponent(nombrejTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jButton1)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                    .addComponent(jRadioButtonNombre)
+                    .addComponent(jRadioButtonNss)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(nssjTextField)
+                        .addComponent(nombrejTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(97, Short.MAX_VALUE)
+                .addComponent(jButtonAceptar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCancelar)
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,9 +127,11 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
                 .addComponent(jRadioButtonNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nombrejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAceptar)
+                    .addComponent(jButtonCancelar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,6 +150,7 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
             jRadioButtonNombre.setSelected(false);
             nssjTextField.setEnabled(true);
             nombrejTextField.setEnabled(false);
+            jButtonAceptar.setEnabled(true);
         }
     }//GEN-LAST:event_jRadioButtonNssActionPerformed
 
@@ -145,15 +159,30 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
             jRadioButtonNss.setSelected(false);
             nssjTextField.setEnabled(false);
             nombrejTextField.setEnabled(true);
+            jButtonAceptar.setEnabled(true);
         }    }//GEN-LAST:event_jRadioButtonNombreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
+        if (jRadioButtonNss.isSelected()) {
+            DlgMostrarPacienteNss dialog = new DlgMostrarPacienteNss((JFrame) this.getParent(), "Paciente");
+            dispose();
+            dialog.setVisible(true);
+        } else {
+            DlgMostrarPacienteNombre dialog = new DlgMostrarPacienteNombre((JFrame) this.getParent(), "Paciente");
+            dispose();
+            dialog.setVisible(true);
+        }
+
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAceptar;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JRadioButton jRadioButtonNombre;
     private javax.swing.JRadioButton jRadioButtonNss;
     private javax.swing.JTextField nombrejTextField;
