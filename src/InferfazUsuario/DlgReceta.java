@@ -1,20 +1,36 @@
 package InferfazUsuario;
 
 import InferfazUsuario.sistemaImpresionGUI.FrmImpresor;
+import ModuloControl.ControlFaçade;
+import interfaces.IControl;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.naming.ldap.ControlFactory;
 import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
+import objetosNegocio.Consulta;
+import objetosNegocio.Paciente;
+import objetosNegocio.Receta;
 
 /**
  *
  * @author Ariel AB
  */
 public class DlgReceta extends javax.swing.JDialog {
-
-    public DlgReceta(javax.swing.JFrame parent, String titulo) {
+StringBuffer respuesta= new StringBuffer("");
+    IControl controlFacade = ControlFaçade.getInstance();
+    private Consulta consulta;
+    private Receta receta;
+    public DlgReceta(javax.swing.JFrame parent, String titulo, StringBuffer respuesta, Consulta consulta) {
         super(parent, titulo, true);
+        this.respuesta= respuesta;
+        this.consulta = consulta;
+        this.receta= new Receta(new Date());
         initComponents();
+        estableceDatos();
         // centra el cuadro de dialogo sobre la ventana de la aplicación 
         centraCuadroDialogo(parent);
 
@@ -55,10 +71,8 @@ public class DlgReceta extends javax.swing.JDialog {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
-        jTextFieldEdad = new javax.swing.JTextField();
         jTextFieldNss = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -74,6 +88,8 @@ public class DlgReceta extends javax.swing.JDialog {
         jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldFecha = new javax.swing.JTextField();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -84,8 +100,6 @@ public class DlgReceta extends javax.swing.JDialog {
 
         jLabel1.setText("Nombre");
 
-        jLabel2.setText("Edad");
-
         jLabel3.setText("Nss");
 
         jTextFieldNombre.setEditable(false);
@@ -94,8 +108,6 @@ public class DlgReceta extends javax.swing.JDialog {
                 jTextFieldNombreActionPerformed(evt);
             }
         });
-
-        jTextFieldEdad.setEditable(false);
 
         jTextFieldNss.setEditable(false);
 
@@ -140,6 +152,10 @@ public class DlgReceta extends javax.swing.JDialog {
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
+        jLabel2.setText("Fecha");
+
+        jTextFieldFecha.setText("jTextField2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,7 +164,7 @@ public class DlgReceta extends javax.swing.JDialog {
                 .addGap(162, 162, 162)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
@@ -156,29 +172,30 @@ public class DlgReceta extends javax.swing.JDialog {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextFieldNss))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButtonAgregarServicio))
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldNss))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonAgregarServicio))
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -192,7 +209,7 @@ public class DlgReceta extends javax.swing.JDialog {
                     .addComponent(jLabel8)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFieldEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -201,9 +218,9 @@ public class DlgReceta extends javax.swing.JDialog {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(75, 75, 75)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAgregarServicio)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -266,10 +283,15 @@ public class DlgReceta extends javax.swing.JDialog {
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextFieldEdad;
+    private javax.swing.JTextField jTextFieldFecha;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldNss;
     // End of variables declaration//GEN-END:variables
-    private int operacion;
-    private StringBuffer respuesta;
+    private void estableceDatos(){
+        DateFormat dft = new SimpleDateFormat("yyyy/MM/dd");
+        jTextFieldNombre.setText(consulta.getPaciente().getNombre());
+        jTextFieldFecha.setText(dft.format(receta.getFecha()));
+        jTextField1.setText(receta.getFolio()+"");
+        jTextFieldNss.setText(consulta.getPaciente().getNss());
+    }
 }

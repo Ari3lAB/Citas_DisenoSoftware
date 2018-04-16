@@ -17,8 +17,11 @@ import objetosNegocio.Paciente;
 public class DlgSeleccionPaciente extends javax.swing.JDialog {
 IControl controlFacada = ControlFaçade.getInstance();
 Paciente paciente;
-    public DlgSeleccionPaciente(javax.swing.JFrame parent, String titulo) {
+StringBuffer respuesta=new StringBuffer("");
+    public DlgSeleccionPaciente(javax.swing.JFrame parent, String titulo, StringBuffer respuesta) {
         super(parent, titulo, true);
+        this.respuesta = respuesta;
+        this.paciente=new Paciente("");
         initComponents();
         // centra el cuadro de dialogo sobre la ventana de la aplicación 
         centraCuadroDialogo(parent);
@@ -29,7 +32,7 @@ Paciente paciente;
         jComboBoxPacientes.setModel(new DefaultComboBoxModel(nombres.toArray()));
         
         estableceDatos();
-        this.setVisible(true);
+        
     }
 
     /**
@@ -168,13 +171,13 @@ Paciente paciente;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        DlgReceta dialog = new DlgReceta((JFrame) this.getParent(), "Receta");
+        
+        respuesta.append("Aceptar");
         dispose();
-        dialog.setVisible(true);
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void CambiarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarjButtonActionPerformed
-        
+        respuesta.append("Cancelar");
         dispose();
     }
         /*
@@ -191,7 +194,8 @@ Paciente paciente;
         
         for (Paciente p : controlFacada.getListaPacientes()) {
             if(p.getNombre().equals(jComboBoxPacientes.getSelectedItem().toString())){
-             paciente = new Paciente(p);
+             paciente = p;
+             
              break;
         }
            
@@ -216,5 +220,7 @@ Paciente paciente;
     private javax.swing.JTextField jTextFieldNss;
     private javax.swing.JTextField jTextFieldTelefono;
     // End of variables declaration//GEN-END:variables
-    
+    public Paciente getPaciente(){
+        return this.paciente;
+    }
 }

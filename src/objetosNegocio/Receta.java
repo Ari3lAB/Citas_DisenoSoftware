@@ -15,16 +15,17 @@ public class Receta {
     protected Date fecha;
 
     protected int folio;
-
-    public Receta(int folio, Date fecha) {
-        this.folio = folio;
+    private static int contadorRecetas=0;
+    public Receta(Date fecha) {
+        contadorRecetas++;
+        this.folio = contadorRecetas;
         this.fecha = fecha;
 
     }
 
-    public Receta(int folio, String diagnostico, Date fecha, String tratamiento) {
-        this.folio = folio;
-        this.Diagnostico = diagnostico;
+    public Receta(String diagnostico, Date fecha, String tratamiento) {
+        contadorRecetas++;
+        this.folio = contadorRecetas;
         this.fecha = fecha;
 
         this.tratamiento = tratamiento;

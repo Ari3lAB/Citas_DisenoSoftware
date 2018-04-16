@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javafx.scene.Parent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import objetosNegocio.Consulta;
 import objetosNegocio.Paciente;
 
 /**
@@ -26,7 +27,7 @@ import objetosNegocio.Paciente;
 public class ControlFaçade implements IControl {
 
     private static ControlFaçade INSTANCE = null;
-    Control control;
+    private Control control;
     private ArrayList<Paciente> listaPacientes;
     
     private ControlFaçade(){
@@ -56,8 +57,9 @@ public class ControlFaçade implements IControl {
             
     
     }
-    public void muestraReceta(){
-        
+    @Override
+    public void muestraReceta(JFrame parent, Paciente paciente){
+        control.desplegarReceta(parent, paciente);
     }
 
     @Override

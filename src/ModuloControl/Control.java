@@ -5,8 +5,12 @@
  */
 package ModuloControl;
 
+import InferfazUsuario.DlgReceta;
 import interfaces.IPersistencia;
 import java.util.ArrayList;
+import javafx.scene.Parent;
+import javax.swing.JFrame;
+import objetosNegocio.Consulta;
 import objetosNegocio.Paciente;
 import persistencia.PersistenciaFacade;
 
@@ -17,12 +21,14 @@ import persistencia.PersistenciaFacade;
 public class Control {
     
     IPersistencia persistencia;
-    
+    Consulta consulta;
     public Control(){
         persistencia = PersistenciaFacade.getInstance();
+        consulta = new  Consulta();
     }
    
     public ArrayList<Paciente> obtenerListaCeder(String nss, String nombre){
+        
         Paciente paciente = new Paciente(nss, nombre, null, null);
         ArrayList<Paciente> pacientes = new ArrayList<>();
         ArrayList<Paciente> encontrados = new  ArrayList<>();
@@ -37,11 +43,18 @@ public class Control {
         }
         }
         else{
-            pacientes.stream().filter((p) -> (p.getNombre().contains(nombre))).forEachOrdered((p) -> {
+            pacientes.stream().filter((p) -> (p.getNombre().toUpperCase().contains(nombre.toUpperCase()))).forEachOrdered((p) -> {
                 encontrados.add(p);
             });
         }
         
      return encontrados;
+    }
+    public void desplegarReceta(JFrame parent, Paciente paciente){
+        this.consulta.setPaciente(paciente);
+        StringBuffer respuesta = new StringBuffer("");
+        DlgReceta dlgReceta = new DlgReceta(parent, "Generar receta", respuesta, consulta);
+        dlgReceta.setVisible(true);
+        
     }
 }

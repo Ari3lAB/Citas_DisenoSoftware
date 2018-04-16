@@ -115,14 +115,23 @@ public class FrmReceta extends javax.swing.JFrame {
 
     private void consultaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaMenuItemActionPerformed
         ArrayList<Paciente> lista;
+        Paciente paciente= new Paciente("");
         while (true) {
             StringBuffer respuesta = new StringBuffer("");
             DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
             dialog.setVisible(true);
             if (respuesta.toString().equals("Aceptar")) {
                 if (!controlFacade.getListaPacientes().isEmpty()) {
-                    DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente");
-
+                    respuesta= new StringBuffer("");
+                    DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente", respuesta);
+                    dlgSeleccion.setVisible(true);
+                    if(respuesta.toString().equals("Aceptar")){
+                        
+                        controlFacade.muestraReceta(this, dlgSeleccion.paciente);
+                    }
+                    else{
+                        
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
 

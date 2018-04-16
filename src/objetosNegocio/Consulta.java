@@ -7,18 +7,20 @@ import java.util.ArrayList;
  * @author Ariel AB
  */
 public class Consulta {
-
+    private static int contadorConsultas=0;
     protected int numeroConsulta;
     protected Paciente paciente;
     protected Receta receta;
     protected ArrayList<Orden> listaOrdenes;
     protected ArrayList<Servicio> listaServicios;
-    public Consulta(int numeroConsulta){
-        this.numeroConsulta = numeroConsulta;
+    public Consulta(){
+        contadorConsultas++;
+        this.numeroConsulta = contadorConsultas;
     }
-    public Consulta(int numeroConsulta, Paciente paciente, Receta receta, ArrayList<Orden> listaOrdenes,
+    public Consulta(Paciente paciente, Receta receta, ArrayList<Orden> listaOrdenes,
             ArrayList<Servicio> listaServicios){
-        this.numeroConsulta = numeroConsulta;
+        contadorConsultas++;
+        this.numeroConsulta = contadorConsultas;
         this.paciente = new Paciente(paciente);
         this.listaOrdenes = new ArrayList<>(listaOrdenes);
         this.listaServicios = new ArrayList<>(listaServicios);
