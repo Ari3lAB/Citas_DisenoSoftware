@@ -5,7 +5,11 @@
  */
 package ModuloControl;
 
+
 import InferfazUsuario.DlgSeleccionPaciente;
+
+import excepciones.PersistenciaException;
+
 import interfaces.IControl;
 import java.awt.Dialog;
 import java.awt.Frame;
@@ -20,6 +24,7 @@ import objetosNegocio.Paciente;
  * @author Ariel AB
  */
 public class ControlFaçade implements IControl {
+
     private static ControlFaçade INSTANCE = null;
     Control control;
     private ArrayList<Paciente> listaPacientes;
@@ -64,5 +69,7 @@ public class ControlFaçade implements IControl {
     public void setListaPacientes(ArrayList<Paciente> listaPacientes) {
         this.listaPacientes = new ArrayList<>(listaPacientes);
     }
+
+   
     
 }
