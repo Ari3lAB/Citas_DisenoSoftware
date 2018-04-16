@@ -5,6 +5,7 @@
  */
 package ModuloControl;
 
+import excepciones.PersistenciaException;
 import interfaces.IControl;
 
 /**
@@ -12,5 +13,10 @@ import interfaces.IControl;
  * @author Ariel AB
  */
 public class ControlFaçade implements IControl {
+
+    @Override
+    public String obtenerReceta() throws PersistenciaException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
