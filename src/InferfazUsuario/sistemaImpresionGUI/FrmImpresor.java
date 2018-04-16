@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author ArielAB
  */
-public class FrmImpresor extends javax.swing.JDialog {
+public class FrmImpresor extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmImpresor

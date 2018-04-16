@@ -18,14 +18,14 @@ import objetosNegocio.Paciente;
 public class FrmReceta extends javax.swing.JFrame {
 
     IControl controlFacade = ControlFaçade.getInstance();
-    
+
     /**
      * Creates new form FrmUsuario
      */
     public FrmReceta() {
         initComponents();
         centraVentana();
-        
+
     }
 
     private void centraVentana() {
@@ -115,23 +115,22 @@ public class FrmReceta extends javax.swing.JFrame {
 
     private void consultaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaMenuItemActionPerformed
         ArrayList<Paciente> lista;
-        while(true){
-        StringBuffer respuesta = new StringBuffer("");
-        DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
-        dialog.setVisible(true);
-        if(respuesta.toString().equals("Aceptar")){
-            if (!controlFacade.getListaPacientes().isEmpty()) {
-           DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente");
+        while (true) {
+            StringBuffer respuesta = new StringBuffer("");
+            DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
+            dialog.setVisible(true);
+            if (respuesta.toString().equals("Aceptar")) {
+                if (!controlFacade.getListaPacientes().isEmpty()) {
+                    DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente");
 
-        }
-            else{
-                 JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
-            
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
+
+                }
+
+            } else {
+                break;
             }
-            
-        }
-        else
-            break;
         }
     }/*
         dialog.setVisible(true);    }//GEN-LAST:event_consultaMenuItemActionPerformed
