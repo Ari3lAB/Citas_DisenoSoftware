@@ -17,17 +17,32 @@ import objetosNegocio.Consulta;
  * @author 1024zettabytes
  */
 public class PersistenciaFacade implements IPersistencia{
-/**
+ private static PersistenciaFacade INSTANCE = null;
+    /**
      * Registro de consultas.
      */
     Consultas registroConsultas;
     /**
      * Constructor. Inicializa los registros.
      */
-    public PersistenciaFacade() {
+    private PersistenciaFacade() {
         this.registroConsultas = new Consultas();
 
     }
+    public static PersistenciaFacade getInstance() {
+        if (INSTANCE == null) createInstance();
+        return INSTANCE;
+    }
+    private static void createInstance() {
+        if (INSTANCE == null) {
+            // Sólo se accede a la zona sincronizada
+            // cuando la instancia no está creada
+                if (INSTANCE == null) { 
+                    INSTANCE = new PersistenciaFacade();
+                }
+            }
+        }
+    
     /**
      * Obtiene una consulta del registro de consultas, regresa null en caso de no
      * encontrala o se genera una excepción de tipo PersistenciaException si no

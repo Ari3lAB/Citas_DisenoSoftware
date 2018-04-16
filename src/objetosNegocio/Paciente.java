@@ -12,6 +12,7 @@ public class Paciente {
     protected String nombre;
     protected String telefono;
     protected String direccion;
+    
 
     public Paciente(String nss) {
         this.nss = nss;
@@ -85,10 +86,7 @@ public class Paciente {
             return false;
         }
         final Paciente other = (Paciente) obj;
-        if (!Objects.equals(this.nss, other.nss)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.nss, other.nss);
     }
 
     

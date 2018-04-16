@@ -1,8 +1,15 @@
 package InferfazUsuario;
 
+import ModuloControl.Control;
+import ModuloControl.ControlFaçade;
+import interfaces.IControl;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ArrayList;
+import javax.naming.ldap.ControlFactory;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import objetosNegocio.Paciente;
 
 /**
  *
@@ -10,8 +17,15 @@ import javax.swing.JFrame;
  */
 public class DlgBuscarPaciente extends javax.swing.JDialog {
 
-    public DlgBuscarPaciente(javax.swing.JFrame parent, String titulo) {
+    private IControl controlFacade;
+    private JFrame parent;
+    StringBuffer respuesta = new StringBuffer("");
+
+    public DlgBuscarPaciente(javax.swing.JFrame parent, String titulo, StringBuffer respuesta) {
         super(parent, titulo, true);
+        this.controlFacade = ControlFaçade.getInstance();
+        this.respuesta = respuesta;
+        this.parent = parent;
         initComponents();
         // centra el cuadro de dialogo sobre la ventana de la aplicación 
         centraCuadroDialogo(parent);
@@ -163,19 +177,22 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
         }    }//GEN-LAST:event_jRadioButtonNombreActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
+        respuesta.append("Aceptar");
+
         if (jRadioButtonNss.isSelected()) {
-            DlgMostrarPacienteNss dialog = new DlgMostrarPacienteNss((JFrame) this.getParent(), "Paciente");
-            dispose();
-            dialog.setVisible(true);
+            controlFacade.obtenerPaciente(nssjTextField.getText(), null);
+
         } else {
-            DlgMostrarPacienteNombre dialog = new DlgMostrarPacienteNombre((JFrame) this.getParent(), "Paciente");
-            dispose();
-            dialog.setVisible(true);
+
+            controlFacade.obtenerPaciente(null, nombrejTextField.getText());
         }
+        dispose();
+
 
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        respuesta.append("Cancelar");
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -188,6 +205,5 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
     private javax.swing.JTextField nombrejTextField;
     private javax.swing.JTextField nssjTextField;
     // End of variables declaration//GEN-END:variables
-    private int operacion;
-    private StringBuffer respuesta;
+
 }

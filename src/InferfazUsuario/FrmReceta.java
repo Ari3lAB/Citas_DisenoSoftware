@@ -1,9 +1,15 @@
 package InferfazUsuario;
 
+import ModuloControl.Control;
+import ModuloControl.ControlFaçade;
+import interfaces.IControl;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import objetosNegocio.Paciente;
 
 /**
  *
@@ -11,12 +17,15 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class FrmReceta extends javax.swing.JFrame {
 
+    IControl controlFacade = ControlFaçade.getInstance();
+    
     /**
      * Creates new form FrmUsuario
      */
     public FrmReceta() {
         initComponents();
         centraVentana();
+        
     }
 
     private void centraVentana() {
@@ -105,10 +114,28 @@ public class FrmReceta extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void consultaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaMenuItemActionPerformed
-        DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente");
+        ArrayList<Paciente> lista;
+        while(true){
+        StringBuffer respuesta = new StringBuffer("");
+        DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
+        dialog.setVisible(true);
+        if(respuesta.toString().equals("Aceptar")){
+            if (!controlFacade.getListaPacientes().isEmpty()) {
+           DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente");
 
+        }
+            else{
+                 JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
+            
+            }
+            
+        }
+        else
+            break;
+        }
+    }/*
         dialog.setVisible(true);    }//GEN-LAST:event_consultaMenuItemActionPerformed
-
+*/
     private void consultaMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultaMenuItemMouseClicked
 
     }//GEN-LAST:event_consultaMenuItemMouseClicked
