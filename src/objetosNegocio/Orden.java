@@ -20,23 +20,28 @@ public class Orden {
     protected String servicio;
     protected String indicaciones;
     protected Date fechaServicio;
+    
+    private static int contadorOrdenes=0;
 
-    public Orden(int numeroSolicitud) {
-
-        this.numeroSolicitud = numeroSolicitud;
+    public Orden() {
+        contadorOrdenes++;
+        this.numeroSolicitud = contadorOrdenes;
     }
 
-    public Orden(int numeroSolicitud, String numeroOrden,
+    public Orden(String numeroOrden,
             Date fechaSolicitud, String codigoProovedor, String nombreProovedor, String nombrePaciente,
-            String NSSPaciente, String servicio, Date fechaServicio) {
+            String NSSPaciente, String servicio, String indicaciones,Date fechaServicio) {
+        contadorOrdenes++;
+        this.numeroSolicitud = contadorOrdenes;
         this.numeroOrden = numeroOrden;
-        this.numeroSolicitud = numeroSolicitud;
+        
         this.fechaSolicitud = fechaSolicitud;
         this.codigoProovedor = codigoProovedor;
         this.nombreProovedor = nombreProovedor;
         this.nombrePaciente = nombrePaciente;
         this.NSSPaciente = NSSPaciente;
         this.servicio = servicio;
+        this.indicaciones = indicaciones;
         this.fechaServicio = fechaServicio;
     }
 
@@ -49,6 +54,7 @@ public class Orden {
         this.nombrePaciente = orden.getNombrePaciente();
         this.NSSPaciente = orden.getNSSPaciente();
         this.servicio = orden.getServicio();
+         this.indicaciones = orden.getIndicaciones();
         this.fechaServicio = orden.getFechaServicio();
     }
 

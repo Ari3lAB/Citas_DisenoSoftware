@@ -1,5 +1,6 @@
 package objetosNegocio;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  * @author Ariel AB
  */
 public class Servicio {
-
+    
     protected Proovedor proovedor;
     protected String nombre;
     protected String descripcion;
@@ -90,7 +91,12 @@ public class Servicio {
 
     @Override
     public String toString() {
-        return nombre + ", " + descripcion + ", " + proovedor.getCodigo();
+        return nombre;
     }
+
+    
+
+    
+
 
 }

@@ -17,6 +17,7 @@ import objetosNegocio.Paciente;
 public class DlgSeleccionPaciente extends javax.swing.JDialog {
 IControl controlFacada = ControlFaçade.getInstance();
 Paciente paciente;
+
 StringBuffer respuesta=new StringBuffer("");
     public DlgSeleccionPaciente(javax.swing.JFrame parent, String titulo, StringBuffer respuesta) {
         super(parent, titulo, true);

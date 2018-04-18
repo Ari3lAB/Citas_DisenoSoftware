@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import objetosNegocio.Consulta;
 import objetosNegocio.Paciente;
+import objetosNegocio.Servicio;
 
 /**
  *
@@ -48,18 +49,22 @@ public class ControlFaçade implements IControl {
             }
         }
      @Override
-    public ArrayList<Paciente> obtenerPaciente(String nss, String nombre) {
+    public void obtenerPaciente(String nss, String nombre) {
         
         listaPacientes = new ArrayList<>(control.obtenerListaCeder(nss, nombre));
         
-        return listaPacientes;
+    
        
             
     
     }
     @Override
-    public void muestraReceta(JFrame parent, Paciente paciente){
-        control.desplegarReceta(parent, paciente);
+    public void muestraReceta(JFrame parent, StringBuffer respuesta, Paciente paciente){
+        ArrayList<Servicio> listaSerVicios = control.obtenerServiciosCeder();
+        control.desplegarReceta(parent, respuesta, paciente, listaSerVicios);
+        
+        
+        
     }
 
     @Override
@@ -71,7 +76,10 @@ public class ControlFaçade implements IControl {
     public void setListaPacientes(ArrayList<Paciente> listaPacientes) {
         this.listaPacientes = new ArrayList<>(listaPacientes);
     }
-
+    @Override
+    public void imprime(){
+        
+    }
    
     
 }

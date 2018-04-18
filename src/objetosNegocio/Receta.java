@@ -72,9 +72,7 @@ public class Receta {
         return tratamiento;
     }
 
-    public boolean agregarServicio(ArrayList<Servicio> listaServicios) {
-        return listaServicios.addAll(listaServicios);
-    }
+    
 
     @Override
     public int hashCode() {

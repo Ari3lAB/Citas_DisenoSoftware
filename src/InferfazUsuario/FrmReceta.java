@@ -114,8 +114,7 @@ public class FrmReceta extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void consultaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaMenuItemActionPerformed
-        ArrayList<Paciente> lista;
-        Paciente paciente= new Paciente("");
+        
         while (true) {
             StringBuffer respuesta = new StringBuffer("");
             DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
@@ -126,8 +125,11 @@ public class FrmReceta extends javax.swing.JFrame {
                     DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente", respuesta);
                     dlgSeleccion.setVisible(true);
                     if(respuesta.toString().equals("Aceptar")){
-                        
-                        controlFacade.muestraReceta(this, dlgSeleccion.paciente);
+                        respuesta= new StringBuffer("");
+                        controlFacade.muestraReceta(this, respuesta, dlgSeleccion.getPaciente());
+                        if(respuesta.toString().equals("Aceptar")){
+                            
+                        }
                     }
                     else{
                         

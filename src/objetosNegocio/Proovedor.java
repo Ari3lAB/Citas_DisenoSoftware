@@ -6,6 +6,7 @@
 package objetosNegocio;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 /**
@@ -14,37 +15,42 @@ import java.util.Objects;
  */
 public class Proovedor {
 
-    protected String codigo;
+    protected int codigo;
     protected String calidad;
-    protected Date inicioContrato;
-    protected Date finContrato;
+    protected GregorianCalendar inicioContrato;
+    protected GregorianCalendar finContrato;
     protected int numOrdenes;
+    protected int diasContrato;
+    protected String nombre;
 
-    public Proovedor(String codigo) {
+    public Proovedor(int codigo) {
         this.codigo = codigo;
     }
 
-    public Proovedor(String codigo, String calidad, Date inicioContrato, Date finContrato, int numOrdenes) {
+    public Proovedor(int codigo, String nombre, String calidad, GregorianCalendar inicioContrato, GregorianCalendar finContrato, int numOrdenes) {
         this.codigo = codigo;
+        this.nombre = nombre;
         this.calidad = calidad;
         this.inicioContrato = inicioContrato;
         this.finContrato = finContrato;
         this.numOrdenes = numOrdenes;
+        this.diasContrato= (int) ((finContrato.getTimeInMillis()-inicioContrato.getTimeInMillis())/86400000);
     }
 
     public Proovedor(Proovedor proovedor) {
         this.codigo = proovedor.getCodigo();
+        this.nombre = proovedor.getNombre();
         this.calidad = proovedor.getCalidad();
         this.inicioContrato = proovedor.getInicioContrato();
         this.finContrato = proovedor.getFinContrato();
         this.numOrdenes = proovedor.getNumOrdenes();
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
@@ -56,19 +62,19 @@ public class Proovedor {
         this.calidad = calidad;
     }
 
-    public Date getInicioContrato() {
+    public GregorianCalendar getInicioContrato() {
         return inicioContrato;
     }
 
-    public void setInicioContrato(Date inicioContrato) {
+    public void setInicioContrato(GregorianCalendar inicioContrato) {
         this.inicioContrato = inicioContrato;
     }
 
-    public Date getFinContrato() {
+    public GregorianCalendar getFinContrato() {
         return finContrato;
     }
 
-    public void setFinContrato(Date finContrato) {
+    public void setFinContrato(GregorianCalendar finContrato) {
         this.finContrato = finContrato;
     }
 
@@ -78,6 +84,22 @@ public class Proovedor {
 
     public void setNumOrdenes(int numOrdenes) {
         this.numOrdenes = numOrdenes;
+    }
+
+    public int getDiasContrato() {
+        return diasContrato;
+    }
+
+    public void setDiasContrato(int diasContrato) {
+        this.diasContrato = diasContrato;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
