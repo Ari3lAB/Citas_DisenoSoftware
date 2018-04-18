@@ -141,6 +141,7 @@ StringBuffer respuesta= new StringBuffer("");
 
         jLabel7.setText("Tratamiento:");
 
+        jTextAreaServicios.setEditable(false);
         jTextAreaServicios.setColumns(20);
         jTextAreaServicios.setRows(5);
         jScrollPane2.setViewportView(jTextAreaServicios);
@@ -267,9 +268,7 @@ receta.setDiagnostico(jTextAreaDiagnostico.getText());
 receta.setTratamiento(jTextAreaTratamiento.getText());
 listaServicios=listaS;
 respuesta.append("Aceptar");
-        FrmImpresor impresor = new FrmImpresor();
         dispose();
-        impresor.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed

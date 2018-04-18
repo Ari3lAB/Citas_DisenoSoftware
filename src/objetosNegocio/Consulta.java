@@ -17,10 +17,9 @@ public class Consulta {
         contadorConsultas++;
         this.numeroConsulta = contadorConsultas;
     }
-    public Consulta(Paciente paciente, Receta receta, ArrayList<Orden> listaOrdenes,
+    public Consulta(int numeroConsulta,Paciente paciente, Receta receta, ArrayList<Orden> listaOrdenes,
             ArrayList<Servicio> listaServicios){
-        contadorConsultas++;
-        this.numeroConsulta = contadorConsultas;
+        this.numeroConsulta = numeroConsulta;
         this.paciente = new Paciente(paciente);
         this.listaOrdenes = new ArrayList<>(listaOrdenes);
         this.listaServicios = new ArrayList<>(listaServicios);
@@ -37,6 +36,7 @@ public class Consulta {
     }
 
     public void setNumeroConsulta(int numeroConsulta) {
+        contadorConsultas= numeroConsulta;
         this.numeroConsulta = numeroConsulta;
     }
 

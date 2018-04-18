@@ -62,6 +62,9 @@ public class ControlFaçade implements IControl {
     public void muestraReceta(JFrame parent, StringBuffer respuesta, Paciente paciente){
         ArrayList<Servicio> listaSerVicios = control.obtenerServiciosCeder();
         control.desplegarReceta(parent, respuesta, paciente, listaSerVicios);
+        if(respuesta.toString().equals("Aceptar")){
+            imprime();
+        }
         
         
         
@@ -78,7 +81,8 @@ public class ControlFaçade implements IControl {
     }
     @Override
     public void imprime(){
-        
+        control.imprimirReceta();
+        control.imprimirOrdenes();
     }
    
     

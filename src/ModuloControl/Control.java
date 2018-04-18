@@ -7,6 +7,7 @@ package ModuloControl;
 
 
 import InferfazUsuario.DlgReceta;
+import InferfazUsuario.FrmImpresor;
 import interfaces.IPersistencia;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -131,6 +132,17 @@ public class Control {
         consulta.setListaOrdenes(listaOrdenes);
         consulta.setListaServicios(listaServicios);
         persistencia.agregar(consulta);
+    }
+    public void imprimirReceta(){
+        FrmImpresor impresor = new FrmImpresor(null);
+        impresor.setVisible(true);
+    }
+    public void imprimirOrdenes(){
+        for (Orden orden : consulta.getListaOrdenes()) {
+            FrmImpresor impresor = new FrmImpresor(orden);
+        impresor.setVisible(true);
+        }
+        
     }
      
 }
