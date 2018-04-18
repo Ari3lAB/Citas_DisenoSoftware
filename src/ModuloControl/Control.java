@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ModuloControl;
 
 import InferfazUsuario.DlgReceta;
-import InferfazUsuario.FrmImpresor;
+import InferfazUsuario.DlgImpresor;
 import interfaces.IPersistencia;
 import java.awt.Frame;
 import java.text.SimpleDateFormat;
@@ -135,13 +130,13 @@ public class Control {
     }
 
     public void imprimirReceta(Frame frame, StringBuffer respuesta) {
-        FrmImpresor impresor = new FrmImpresor(frame, "Imprimir Receta", respuesta, null);
+        DlgImpresor impresor = new DlgImpresor(frame, "Imprimir Receta", respuesta, null);
         impresor.setVisible(true);
     }
 
     public void imprimirOrdenes(Frame frame) {
         for (Orden orden : consulta.getListaOrdenes()) {
-            FrmImpresor impresor = new FrmImpresor(frame, "Imprimir Orden", null, orden);
+            DlgImpresor impresor = new DlgImpresor(frame, "Imprimir Orden", null, orden);
             impresor.setVisible(true);
         }
 

@@ -5,9 +5,7 @@ import interfaces.IControl;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import objetosNegocio.Paciente;
 
 /**
@@ -15,25 +13,27 @@ import objetosNegocio.Paciente;
  * @author Ariel AB
  */
 public class DlgSeleccionPaciente extends javax.swing.JDialog {
-IControl controlFacada = ControlFaçade.getInstance();
-Paciente paciente;
 
-StringBuffer respuesta=new StringBuffer("");
+    IControl controlFacada = ControlFaçade.getInstance();
+    Paciente paciente;
+
+    StringBuffer respuesta = new StringBuffer("");
+
     public DlgSeleccionPaciente(javax.swing.JFrame parent, String titulo, StringBuffer respuesta) {
         super(parent, titulo, true);
         this.respuesta = respuesta;
-        this.paciente=new Paciente("");
+        this.paciente = new Paciente("");
         initComponents();
         // centra el cuadro de dialogo sobre la ventana de la aplicación 
         centraCuadroDialogo(parent);
         ArrayList<String> nombres = new ArrayList<>();
         controlFacada.getListaPacientes().forEach((p) -> {
             nombres.add(p.getNombre());
-    });
+        });
         jComboBoxPacientes.setModel(new DefaultComboBoxModel(nombres.toArray()));
-        
+
         estableceDatos();
-        
+
     }
 
     /**
@@ -172,16 +172,17 @@ StringBuffer respuesta=new StringBuffer("");
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        
-        respuesta.append("Aceptar");
         dispose();
+        respuesta.append("Aceptar");
+
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void CambiarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarjButtonActionPerformed
-        respuesta.append("Cancelar");
         dispose();
+        respuesta.append("Cancelar");
     }
-        /*
+
+    /*
         dialog.setVisible(true);    }//GEN-LAST:event_CambiarjButtonActionPerformed
 */
     private void jTextFieldDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDireccionActionPerformed
@@ -189,21 +190,19 @@ StringBuffer respuesta=new StringBuffer("");
     }//GEN-LAST:event_jTextFieldDireccionActionPerformed
 
     private void jComboBoxPacientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxPacientesItemStateChanged
-     estableceDatos();
+        estableceDatos();
     }//GEN-LAST:event_jComboBoxPacientesItemStateChanged
-    public void estableceDatos(){
-        
+    public void estableceDatos() {
+
         for (Paciente p : controlFacada.getListaPacientes()) {
-            if(p.getNombre().equals(jComboBoxPacientes.getSelectedItem().toString())){
-             paciente = p;
-             
-             break;
-        }
-           
+            if (p.getNombre().equals(jComboBoxPacientes.getSelectedItem().toString())) {
+                paciente = p;
+
+                break;
+            }
+
         }
 
-        
-        
         jTextFieldTelefono.setText(paciente.getTelefono());
         jTextFieldDireccion.setText(paciente.getDireccion());
         jTextFieldNss.setText(paciente.getNss());
@@ -221,7 +220,7 @@ StringBuffer respuesta=new StringBuffer("");
     private javax.swing.JTextField jTextFieldNss;
     private javax.swing.JTextField jTextFieldTelefono;
     // End of variables declaration//GEN-END:variables
-    public Paciente getPaciente(){
+    public Paciente getPaciente() {
         return this.paciente;
     }
 }
