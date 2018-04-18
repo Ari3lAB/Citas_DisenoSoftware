@@ -26,10 +26,10 @@ public class FrmImpresor extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
        if(orden==null){
-           
+           // setear la receta de consulta.getReceta() al area de texto con formato.
        }
        else{
-       
+       // setear la orden recibida al area de texto con formato.
        }
         setVisible(true);
     }
