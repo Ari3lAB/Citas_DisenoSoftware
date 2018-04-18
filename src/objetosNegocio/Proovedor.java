@@ -35,6 +35,7 @@ public class Proovedor {
         this.finContrato = finContrato;
         this.numOrdenes = numOrdenes;
         this.diasContrato= (int) ((finContrato.getTimeInMillis()-inicioContrato.getTimeInMillis())/86400000);
+        
     }
 
     public Proovedor(Proovedor proovedor) {

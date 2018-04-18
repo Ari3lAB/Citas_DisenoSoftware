@@ -67,7 +67,6 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        nssjTextField.setEnabled(false);
         nssjTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nssjTextFieldActionPerformed(evt);
@@ -81,6 +80,7 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
             }
         });
 
+        jRadioButtonNss.setSelected(true);
         jRadioButtonNss.setText("NSS (Numero de Seguro Social");
         jRadioButtonNss.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,22 +160,27 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
     }//GEN-LAST:event_nombrejTextFieldActionPerformed
 
     private void jRadioButtonNssActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNssActionPerformed
-        if (jRadioButtonNss.isSelected()) {
+        jRadioButtonNss.setSelected(true);
+       
             jRadioButtonNombre.setSelected(false);
             nssjTextField.setEnabled(true);
             nombrejTextField.setEnabled(false);
             jButtonAceptar.setEnabled(true);
-        }
+        
     }//GEN-LAST:event_jRadioButtonNssActionPerformed
 
     private void jRadioButtonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNombreActionPerformed
-        if (jRadioButtonNombre.isSelected()) {
+        jRadioButtonNombre.setSelected(true);
+       
             jRadioButtonNss.setSelected(false);
             nssjTextField.setEnabled(false);
             nombrejTextField.setEnabled(true);
             jButtonAceptar.setEnabled(true);
+            
+            /*
         }    }//GEN-LAST:event_jRadioButtonNombreActionPerformed
-
+*/
+    }
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         respuesta.append("Aceptar");
 

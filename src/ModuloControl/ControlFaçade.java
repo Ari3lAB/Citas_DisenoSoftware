@@ -86,6 +86,10 @@ public class ControlFaçade implements IControl {
         control.imprimirOrdenes(frame);
         }
     }
+
+    public void setControl(Control control) {
+        this.control = control;
+    }
    
     
 }

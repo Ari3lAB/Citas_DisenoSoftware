@@ -69,7 +69,7 @@ public class PersistenciaFacade implements IPersistencia{
             registroConsultas.agrega(consulta);
             return;
         }
-      throw new PersistenciaException("***ERROR: No se puede agregar el turista al registro.");
+      throw new PersistenciaException("***ERROR: No se puede agregar la consulta al registro.");
     }
 
     /**

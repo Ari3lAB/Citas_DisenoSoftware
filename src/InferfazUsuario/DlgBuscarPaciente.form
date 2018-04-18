@@ -67,9 +67,6 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="nssjTextField">
-      <Properties>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nssjTextFieldActionPerformed"/>
       </Events>
@@ -84,6 +81,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButtonNss">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="NSS (Numero de Seguro Social"/>
       </Properties>
       <Events>

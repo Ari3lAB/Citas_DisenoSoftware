@@ -1,5 +1,6 @@
 package interfaces;
 
+import ModuloControl.Control;
 import java.awt.Frame;
 import java.util.ArrayList;
 import javafx.scene.Parent;
@@ -17,5 +18,5 @@ public interface IControl {
     public ArrayList<Paciente> getListaPacientes();
     public void muestraReceta(JFrame parent, StringBuffer receta, Paciente paciente);
     public void imprime(Frame frame, StringBuffer respuesta);
-   
+   public void setControl(Control control);
 }

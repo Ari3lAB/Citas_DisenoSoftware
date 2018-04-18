@@ -45,11 +45,11 @@ public class Control {
         Paciente paciente = new Paciente(nss, nombre, null, null);
         ArrayList<Paciente> pacientes = new ArrayList<>();
         ArrayList<Paciente> encontrados = new ArrayList<>();
-        pacientes.add(new Paciente("29384765378", "Jose Lopez", "254434736457", "CAlle x"));
-        pacientes.add(new Paciente("92837465271", "Pablo Perez", "178643443536", "CAlle 7"));
-        pacientes.add(new Paciente("mm992jwjw99", "Jose Martinez", "1656556456456", "CAlle i"));
-        pacientes.add(new Paciente("mmsnhh79297", "Karina Cota", "19283736457", "CAlle s"));
-        pacientes.add(new Paciente("32300873hh8", "Abel Rosas", "128912357", "CAlle sd"));
+        pacientes.add(new Paciente("29384765378", "Jose Lopez", "254434736457", "Calle Newton"));
+        pacientes.add(new Paciente("92837465271", "Pablo Perez", "178643443536", "Calle Pitagoras"));
+        pacientes.add(new Paciente("mm992jwjw99", "Jose Martinez", "1656556456456", "Calle Galileo"));
+        pacientes.add(new Paciente("mmsnhh79297", "Karina Cota", "19283736457", "Calle Emiliano Zapata"));
+        pacientes.add(new Paciente("32300873hh8", "Abel Rosas", "128912357", "Calle Francisco Villa"));
         if (nss != null) {
             if (pacientes.contains(paciente)) {
                 encontrados.add(pacientes.get(pacientes.lastIndexOf(paciente)));
@@ -89,7 +89,7 @@ public class Control {
         Proovedor pro1 = new Proovedor(1, "Hospital 1", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 3, 2), 0);
         Proovedor pro2 = new Proovedor(2, "Hospital 2", "Buena", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2018, 6, 2), 1);
         Proovedor pro3 = new Proovedor(3, "Hospital 3", "Mala", new GregorianCalendar(2018, 0, 14), new GregorianCalendar(2018, 0, 23), 0);
-        Proovedor pro4 = new Proovedor(4, "Hospital 4", "Mala", new GregorianCalendar(2018, 9, 20), new GregorianCalendar(2018, 3, 2), 0);
+        Proovedor pro4 = new Proovedor(4, "Hospital 4", "Mala", new GregorianCalendar(2018, 3, 9), new GregorianCalendar(2019, 3, 20), 0);
         Proovedor pro5 = new Proovedor(5, "Hospital 5", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 0, 2), 1);
         Proovedor pro6 = new Proovedor(6, "Hospital 6", "Buena", new GregorianCalendar(2018, 5, 19), new GregorianCalendar(2019, 3, 2), 0);
 
@@ -102,6 +102,8 @@ public class Control {
         listaServicios.add(new Servicio("902", pro1, "Ultrasonido", ""));
         listaServicios.add(new Servicio("ams", pro5, "Ultrasonido", ""));
         listaServicios.add(new Servicio("laa", pro2, "Pediatria", ""));
+        System.out.println(listaServicios.get(0).toString());
+        //Clasifica los servicios por calidad.
         for (Servicio serv : listaServicios) {
             Proovedor p = new Proovedor(serv.getProovedor());
             if (p.getCalidad().equals("Buena")) {
@@ -112,11 +114,17 @@ public class Control {
                 serviciosMalos.add(serv);
             }
         }
-        Collections.sort(serviciosBuenos, (a, b) -> a.getProovedor().getDiasContrato() < b.getProovedor().getDiasContrato() ? -1 : a.getProovedor().getDiasContrato() == b.getProovedor().getDiasContrato() ? 0 : 1);
+        //Ordena servicios de buena calidad or margen de contrato.
+        Collections.sort(serviciosBuenos, (a, b) -> a.getProovedor().getDiasContrato() > b.getProovedor().getDiasContrato() ? -1 : a.getProovedor().getDiasContrato() == b.getProovedor().getDiasContrato() ? 0 : 1);
+        //Ordena servicios de buena calidad por número de ordenes.
         Collections.sort(serviciosBuenos, (a, b) -> a.getProovedor().getNumOrdenes() < b.getProovedor().getNumOrdenes() ? -1 : a.getProovedor().getNumOrdenes() == b.getProovedor().getNumOrdenes() ? 0 : 1);
+         //Ordena servicios de calidad regular por margen de contrato.
         Collections.sort(serviciosRegulares, (a, b) -> a.getProovedor().getDiasContrato() < b.getProovedor().getDiasContrato() ? -1 : a.getProovedor().getDiasContrato() == b.getProovedor().getDiasContrato() ? 0 : 1);
+        //Ordena servicios de calidad regular por número de ordenes.
         Collections.sort(serviciosRegulares, (a, b) -> a.getProovedor().getNumOrdenes() < b.getProovedor().getNumOrdenes() ? -1 : a.getProovedor().getNumOrdenes() == b.getProovedor().getNumOrdenes() ? 0 : 1);
+         //Ordena servicios de calidad mala por margen de contrato.
         Collections.sort(serviciosMalos, (a, b) -> a.getProovedor().getDiasContrato() < b.getProovedor().getDiasContrato() ? -1 : a.getProovedor().getDiasContrato() == b.getProovedor().getDiasContrato() ? 0 : 1);
+        //Ordena servicios de calidad regular por número de ordenes.
         Collections.sort(serviciosMalos, (a, b) -> a.getProovedor().getNumOrdenes() < b.getProovedor().getNumOrdenes() ? -1 : a.getProovedor().getNumOrdenes() == b.getProovedor().getNumOrdenes() ? 0 : 1);
         listaServicios.removeAll(listaServicios);
         listaServicios.addAll(serviciosBuenos);
