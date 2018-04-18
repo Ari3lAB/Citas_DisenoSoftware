@@ -61,6 +61,7 @@ public class ControlFaçade implements IControl {
     @Override
     public void muestraReceta(JFrame parent, StringBuffer respuesta, Paciente paciente){
         ArrayList<Servicio> listaSerVicios = control.obtenerServiciosCeder();
+        
         control.desplegarReceta(parent, respuesta, paciente, listaSerVicios);
         
         

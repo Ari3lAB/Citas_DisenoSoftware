@@ -266,7 +266,10 @@ StringBuffer respuesta= new StringBuffer("");
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 receta.setDiagnostico(jTextAreaDiagnostico.getText());
 receta.setTratamiento(jTextAreaTratamiento.getText());
-listaServicios=listaS;
+        
+listaServicios.clear();
+listaServicios.addAll(listaS);
+        
 respuesta.append("Aceptar");
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -277,6 +280,7 @@ respuesta.append("Aceptar");
 
     private void jButtonAgregarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarServicioActionPerformed
        Servicio servicioSeleccionado = new Servicio((Servicio)jComboBoxServicios.getModel().getSelectedItem());
+        
        listaS.add(servicioSeleccionado);
        if(!jTextAreaServicios.getText().equals(""))
         jTextAreaServicios.setText(jTextAreaServicios.getText()+"\n"+servicioSeleccionado.toString());

@@ -34,6 +34,7 @@ public class Control {
     ArrayList<Orden> listaOrdenes;
 
     public Control() {
+        listaOrdenes= new ArrayList<>();
         persistencia = PersistenciaFacade.getInstance();
         consulta = new Consulta();
         receta = new Receta(new Date());
@@ -65,12 +66,15 @@ public class Control {
     public void desplegarReceta(JFrame parent, StringBuffer respuesta, Paciente paciente, ArrayList<Servicio> listaServicios) {
         this.consulta.setPaciente(paciente);
         this.listaServicios = listaServicios;
-
+        
         DlgReceta dlgReceta = new DlgReceta(parent, "Generar receta", respuesta, consulta, receta, this.listaServicios);
         dlgReceta.setVisible(true);
-        if (respuesta.equals("Aceptar")) {
+        System.out.println(this.listaServicios);
+        if (respuesta.toString().equals("Aceptar")) {
+            
             for (Servicio servicio : listaServicios) {
-                listaOrdenes.add(new Orden(servicio.getNombre().substring(0, 2), new Date(), servicio.getProovedor().getCodigo() + "", servicio.getProovedor().getNombre(), consulta.getPaciente().getNombre(), consulta.getPaciente().getNss(), servicio.getNombre(), receta.getTratamiento(), new Date()));
+                Orden o = new Orden(servicio.getNombre().substring(0, 2), new Date(), servicio.getProovedor().getCodigo() + "", servicio.getProovedor().getNombre(), consulta.getPaciente().getNombre(), consulta.getPaciente().getNss(), servicio.getNombre(), receta.getTratamiento(), new Date());
+                listaOrdenes.add(o);
             }
             guardarReceta();
         }
@@ -127,6 +131,7 @@ public class Control {
         consulta.setListaOrdenes(listaOrdenes);
         consulta.setListaServicios(listaServicios);
         persistencia.agregar(consulta);
+        System.out.println(consulta.getListaOrdenes());
     }
 
     public void imprimirReceta(Frame frame, StringBuffer respuesta) {

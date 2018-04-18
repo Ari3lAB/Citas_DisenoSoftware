@@ -181,10 +181,9 @@ public class FrmReceta extends javax.swing.JFrame {
                         if (respuesta.toString().equals("Aceptar")) {
                             respuesta = new StringBuffer("");
                             controlFacade.imprime(this, respuesta);
+                            break;
                         }
-                    } else {
-
-                    }
+                    } 
                 } else {
                     JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
 

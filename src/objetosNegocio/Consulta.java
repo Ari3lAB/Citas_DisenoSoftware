@@ -61,7 +61,7 @@ public class Consulta {
     }
 
     public void setListaOrdenes(ArrayList<Orden> listaOrdenes) {
-        this.listaOrdenes=null;
+        
         this.listaOrdenes = new ArrayList<>(listaOrdenes);
     }
     public boolean agregarOrden(Orden orden){

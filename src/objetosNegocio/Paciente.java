@@ -93,7 +93,7 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return nss + ", " + nombre + ", " + telefono + ", " + direccion;
+        return nombre;
     }
 
 }
