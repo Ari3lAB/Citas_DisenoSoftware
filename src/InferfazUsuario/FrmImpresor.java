@@ -7,6 +7,7 @@ package InferfazUsuario;
 
 import ModuloControl.ControlFaçade;
 import SistemaImpresion.ControlImpresion;
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 import objetosNegocio.Orden;
 
@@ -14,22 +15,26 @@ import objetosNegocio.Orden;
  *
  * @author ArielAB
  */
-public class FrmImpresor extends javax.swing.JFrame {
+public class FrmImpresor extends javax.swing.JFrame{
 
     /**
      * Creates new form FrmImpresor
      */
     private ControlFaçade control = ControlFaçade.getInstance();
-   
-    public FrmImpresor(Orden orden) {
+    private StringBuffer respuesta;
+    public FrmImpresor(Frame frame, String titulo, StringBuffer respuesta, Orden orden) {
+        //super(frame, titulo, true);
         
+        this.respuesta=respuesta;
         initComponents();
         setLocationRelativeTo(null);
        if(orden==null){
            // setear la receta de consulta.getReceta() al area de texto con formato.
+           areaTexto.setText("Receta");
        }
        else{
        // setear la orden recibida al area de texto con formato.
+       areaTexto.setText(orden.getNumeroOrden());
        }
         setVisible(true);
     }
@@ -113,7 +118,10 @@ public class FrmImpresor extends javax.swing.JFrame {
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         try {
+            if(respuesta!=null)
+            respuesta.append("Aceptar");
             areaTexto.print();
+            dispose();
         } catch (java.awt.print.PrinterException ex) {      //Codigo para imprimir cualquier text area con el formato en que esté
             ex.printStackTrace();
         }
@@ -121,6 +129,8 @@ public class FrmImpresor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonCancelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelaActionPerformed
+        if(respuesta!=null)
+        respuesta.append("Cancelar");
         dispose();
     }//GEN-LAST:event_jButtonCancelaActionPerformed
 

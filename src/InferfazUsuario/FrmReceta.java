@@ -128,7 +128,8 @@ public class FrmReceta extends javax.swing.JFrame {
                         respuesta= new StringBuffer("");
                         controlFacade.muestraReceta(this, respuesta, dlgSeleccion.getPaciente());
                         if(respuesta.toString().equals("Aceptar")){
-                            
+                            respuesta = new StringBuffer("");
+                            controlFacade.imprime(this,respuesta);
                         }
                     }
                     else{
