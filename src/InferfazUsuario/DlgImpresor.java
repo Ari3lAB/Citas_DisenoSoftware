@@ -16,7 +16,7 @@ public class DlgImpresor extends javax.swing.JDialog {
     private StringBuffer respuesta;
 
     public DlgImpresor(Frame frame, String titulo, StringBuffer respuesta, Orden orden) {
-        //super(frame, titulo, true);
+        super(frame, titulo, true);
 
         this.respuesta = respuesta;
         initComponents();
@@ -28,17 +28,21 @@ public class DlgImpresor extends javax.swing.JDialog {
             // setear la orden recibida al area de texto con formato.
             areaTexto.setText(orden.getNumeroOrden());
         }
-        setVisible(true);
+
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaTexto = new javax.swing.JTextArea();
         jButtonImprimir = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -46,14 +50,14 @@ public class DlgImpresor extends javax.swing.JDialog {
         areaTexto.setRows(5);
         jScrollPane1.setViewportView(areaTexto);
 
-        jButtonImprimir.setText("Aceptar e imprimir");
+        jButtonImprimir.setText("Imprimir");
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonImprimirActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
+        jButton2.setText("Cancel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -70,11 +74,10 @@ public class DlgImpresor extends javax.swing.JDialog {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jButtonImprimir))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(jButton2)))
+                        .addGap(181, 181, 181)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -116,6 +119,7 @@ public class DlgImpresor extends javax.swing.JDialog {
     private javax.swing.JTextArea areaTexto;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonImprimir;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

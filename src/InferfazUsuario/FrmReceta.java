@@ -58,12 +58,20 @@ public class FrmReceta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jbuttonNuevaConsulta = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         consultaMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jbuttonNuevaConsulta.setText("Nueva consulta");
+        jbuttonNuevaConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbuttonNuevaConsultaActionPerformed(evt);
+            }
+        });
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Consulta");
@@ -99,11 +107,17 @@ public class FrmReceta extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(jbuttonNuevaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(jbuttonNuevaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,26 +128,25 @@ public class FrmReceta extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void consultaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaMenuItemActionPerformed
-        
+
         while (true) {
             StringBuffer respuesta = new StringBuffer("");
             DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
             dialog.setVisible(true);
             if (respuesta.toString().equals("Aceptar")) {
                 if (!controlFacade.getListaPacientes().isEmpty()) {
-                    respuesta= new StringBuffer("");
+                    respuesta = new StringBuffer("");
                     DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente", respuesta);
                     dlgSeleccion.setVisible(true);
-                    if(respuesta.toString().equals("Aceptar")){
-                        respuesta= new StringBuffer("");
+                    if (respuesta.toString().equals("Aceptar")) {
+                        respuesta = new StringBuffer("");
                         controlFacade.muestraReceta(this, respuesta, dlgSeleccion.getPaciente());
-                        if(respuesta.toString().equals("Aceptar")){
+                        if (respuesta.toString().equals("Aceptar")) {
                             respuesta = new StringBuffer("");
-                            controlFacade.imprime(this,respuesta);
+                            controlFacade.imprime(this, respuesta);
                         }
-                    }
-                    else{
-                        
+                    } else {
+
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
@@ -150,6 +163,41 @@ public class FrmReceta extends javax.swing.JFrame {
     private void consultaMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultaMenuItemMouseClicked
 
     }//GEN-LAST:event_consultaMenuItemMouseClicked
+
+    private void jbuttonNuevaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonNuevaConsultaActionPerformed
+
+        while (true) {
+            StringBuffer respuesta = new StringBuffer("");
+            DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
+            dialog.setVisible(true);
+            if (respuesta.toString().equals("Aceptar")) {
+                if (!controlFacade.getListaPacientes().isEmpty()) {
+                    respuesta = new StringBuffer("");
+                    DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente", respuesta);
+                    dlgSeleccion.setVisible(true);
+                    if (respuesta.toString().equals("Aceptar")) {
+                        respuesta = new StringBuffer("");
+                        controlFacade.muestraReceta(this, respuesta, dlgSeleccion.getPaciente());
+                        if (respuesta.toString().equals("Aceptar")) {
+                            respuesta = new StringBuffer("");
+                            controlFacade.imprime(this, respuesta);
+                        }
+                    } else {
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
+
+                }
+
+            } else {
+                break;
+            }
+        }
+        /*
+        dialog.setVisible(true);    }                                                
+         */
+    }//GEN-LAST:event_jbuttonNuevaConsultaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,6 +232,7 @@ public class FrmReceta extends javax.swing.JFrame {
     private javax.swing.JMenuItem consultaMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JButton jbuttonNuevaConsulta;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
