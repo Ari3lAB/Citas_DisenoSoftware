@@ -69,7 +69,7 @@ public class Control {
         
         DlgReceta dlgReceta = new DlgReceta(parent, "Generar receta", respuesta, consulta, receta, this.listaServicios);
         dlgReceta.setVisible(true);
-        System.out.println(this.listaServicios);
+        
         if (respuesta.toString().equals("Aceptar")) {
             
             for (Servicio servicio : listaServicios) {
