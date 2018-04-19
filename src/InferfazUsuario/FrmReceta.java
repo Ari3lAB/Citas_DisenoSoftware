@@ -165,7 +165,7 @@ public class FrmReceta extends javax.swing.JFrame {
     }//GEN-LAST:event_consultaMenuItemMouseClicked
 
     private void jbuttonNuevaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonNuevaConsultaActionPerformed
-controlFacade.setControl(new Control());
+
         while (true) {
             StringBuffer respuesta = new StringBuffer("");
             DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
@@ -193,6 +193,7 @@ controlFacade.setControl(new Control());
                 break;
             }
         }
+        controlFacade.setControl(new Control());
         /*
         dialog.setVisible(true);    }                                                
          */
