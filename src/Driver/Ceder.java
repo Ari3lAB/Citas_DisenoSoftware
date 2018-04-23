@@ -63,18 +63,17 @@ public class Ceder {
     }
     
     public int obtenerUltimaReceta() throws SQLException{
-        String consulta = "SELECT MAX(folioReceta) = folioReceta" +
-                          "FROM Receta";
+        String consulta = "SELECT folioReceta = MAX(folioReceta)\n" +
+                            "FROM Receta\n" +
+                            "GROUP BY folioReceta";
         PreparedStatement ps = null;
         ResultSet rs = null;
         ps = conexion.prepareStatement(consulta);
         rs = ps.executeQuery();
         
-        if(rs.getString("MAX(folioReceta)") == null){
-            return 1;
-        }
+        System.out.println(rs.getString("folioReceta"));
         
-        return Integer.parseInt(rs.getString("MAX(folioReceta)"));
+        return Integer.parseInt(rs.getString("folioReceta"));
         
     }
     
