@@ -7,6 +7,7 @@ package Driver;
 
 import java.sql.SQLException;
 import objetosNegocio.Paciente;
+import objetosNegocio.Servicio;
 
 /**
  *
@@ -15,9 +16,23 @@ import objetosNegocio.Paciente;
 public class PruebaC {
 
     public static void main(String[] args) throws SQLException {
-        Ceder bd = new Ceder();
+        Ceder bd = Ceder.getInstance();
        
         
+        for (Paciente paciente : bd.obtenerPaciente()) {
+            System.out.println(paciente.getNombre());
+            System.out.println(paciente.getDireccion());
+            System.out.println(paciente.getNss());
+            System.out.println(paciente.getTelefono());
+            System.out.println("--------------------------------");
+        }
+        
+        for (Servicio obtenerServicio : bd.obtenerServicios()) {
+            System.out.println(obtenerServicio.getNombre());
+            System.out.println(obtenerServicio.getDescripcion());
+            System.out.println(obtenerServicio.getProovedor());
+            System.out.println(obtenerServicio.getCodigoServicio());
+        }
         System.out.println(bd.obtenerUltimaReceta());
         
     }

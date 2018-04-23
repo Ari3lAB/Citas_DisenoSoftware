@@ -9,6 +9,7 @@ import ModuloControl.ControlFaçade;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import objetosNegocio.Paciente;
 import objetosNegocio.Proveedor;
 import objetosNegocio.Proveedor;
@@ -105,6 +106,7 @@ public class Ceder {
     public ArrayList<Servicio> obtenerServicios() throws SQLException{
         String consulta = "SELECT s.idProveedor as idProveedor,\n" +
                             "       s.nombreServicio as nombreServicio,\n" +
+                            "                  p.nombreServicio,\n      "+
                             "       s.idServicio as idServicio,\n" +
                             "       s.descripcion as descripcion,\n" +
                             "       p.nombreProveedor nombreProveedor,\n" +
@@ -131,8 +133,8 @@ public class Ceder {
         while(rs.next()){
             servicios.add(new Servicio(rs.getString("idServicio"),
                     new Proveedor(rs.getString("nombreProveedor"), rs.getString("idProveedor"),rs.getString("calidad"), 
-                            new Date(Integer.parseInt(rs.getString("anoI")), Integer.parseInt(rs.getString("mesI")), Integer.parseInt(rs.getString("diaI")))     ,
-                            new Date(Integer.parseInt(rs.getString("anoF")), Integer.parseInt(rs.getString("mesF")), Integer.parseInt(rs.getString("diaF")))     ,
+                            new GregorianCalendar(Integer.parseInt(rs.getString("anoI")), Integer.parseInt(rs.getString("mesI")), Integer.parseInt(rs.getString("diaI")))     ,
+                            new GregorianCalendar(Integer.parseInt(rs.getString("anoF")), Integer.parseInt(rs.getString("mesF")), Integer.parseInt(rs.getString("diaF")))     ,
                             Integer.parseInt(rs.getString("numeroOrdenes"))),
                             
                     
@@ -142,7 +144,7 @@ public class Ceder {
         }
         
         
-        return pacientes;
+        return servicios;
         
         
     }
