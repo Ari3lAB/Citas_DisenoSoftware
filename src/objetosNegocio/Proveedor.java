@@ -13,9 +13,9 @@ import java.util.Objects;
  *
  * @author 1024zettabytes
  */
-public class Proovedor {
+public class Proveedor {
 
-    private int codigo;
+    private String codigo;
     private String calidad;
     private GregorianCalendar inicioContrato;
     private GregorianCalendar finContrato;
@@ -23,11 +23,11 @@ public class Proovedor {
     private int diasContrato;
     private String nombre;
 
-    public Proovedor(int codigo) {
+    public Proveedor(String codigo) {
         this.codigo = codigo;
     }
 
-    public Proovedor(int codigo, String nombre, String calidad, GregorianCalendar inicioContrato, GregorianCalendar finContrato, int numOrdenes) {
+    public Proveedor(String codigo, String nombre, String calidad, GregorianCalendar inicioContrato, GregorianCalendar finContrato, int numOrdenes) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.calidad = calidad;
@@ -38,7 +38,7 @@ public class Proovedor {
         
     }
 
-    public Proovedor(Proovedor proovedor) {
+    public Proveedor(Proveedor proovedor) {
         this.codigo = proovedor.getCodigo();
         this.nombre = proovedor.getNombre();
         this.calidad = proovedor.getCalidad();
@@ -47,11 +47,11 @@ public class Proovedor {
         this.numOrdenes = proovedor.getNumOrdenes();
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -121,7 +121,7 @@ public class Proovedor {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Proovedor other = (Proovedor) obj;
+        final Proveedor other = (Proveedor) obj;
         if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }

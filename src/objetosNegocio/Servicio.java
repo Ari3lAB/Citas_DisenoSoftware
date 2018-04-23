@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Servicio {
     
-    private Proovedor proovedor;
+    private Proveedor proovedor;
     private String nombre;
     private String descripcion;
     private String codigoServicio;
@@ -18,9 +18,9 @@ public class Servicio {
         this.codigoServicio = codigoServicio;
     }
 
-    public Servicio(String codigoServicio, Proovedor proovedor, String nombre, String descripcion) {
+    public Servicio(String codigoServicio, Proveedor proovedor, String nombre, String descripcion) {
         this.codigoServicio = codigoServicio;
-        this.proovedor = new Proovedor(proovedor);
+        this.proovedor = new Proveedor(proovedor);
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
@@ -28,7 +28,7 @@ public class Servicio {
     public Servicio(Servicio servicio) {
         this.codigoServicio = servicio.getCodigoServicio();
         this.nombre = servicio.getNombre();
-        this.proovedor = new Proovedor(servicio.getProovedor());
+        this.proovedor = new Proveedor(servicio.getProovedor());
         this.descripcion = servicio.getDescripcion();
     }
 
@@ -56,12 +56,12 @@ public class Servicio {
         this.descripcion = descripcion;
     }
 
-    public Proovedor getProovedor() {
-        return new Proovedor(proovedor);
+    public Proveedor getProovedor() {
+        return new Proveedor(proovedor);
     }
 
-    public void setProovedor(Proovedor proovedor) {
-        this.proovedor = new Proovedor(proovedor);
+    public void setProovedor(Proveedor proovedor) {
+        this.proovedor = new Proveedor(proovedor);
     }
 
     @Override

@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 import objetosNegocio.Consulta;
 import objetosNegocio.Orden;
 import objetosNegocio.Paciente;
-import objetosNegocio.Proovedor;
+import objetosNegocio.Proveedor;
 import objetosNegocio.Receta;
 import objetosNegocio.Servicio;
 import persistencia.PersistenciaFacade;
@@ -85,12 +85,12 @@ public class Control {
         ArrayList<Servicio> serviciosBuenos = new ArrayList<>();
         ArrayList<Servicio> serviciosRegulares = new ArrayList<>();
         ArrayList<Servicio> serviciosMalos = new ArrayList<>();
-        Proovedor pro1 = new Proovedor(1, "Hospital 1", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 3, 2), 0);
-        Proovedor pro2 = new Proovedor(2, "Hospital 2", "Buena", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2018, 6, 2), 1);
-        Proovedor pro3 = new Proovedor(3, "Hospital 3", "Mala", new GregorianCalendar(2018, 0, 14), new GregorianCalendar(2018, 0, 23), 0);
-        Proovedor pro4 = new Proovedor(4, "Hospital 4", "Mala", new GregorianCalendar(2018, 3, 9), new GregorianCalendar(2019, 3, 20), 0);
-        Proovedor pro5 = new Proovedor(5, "Hospital 5", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 0, 2), 1);
-        Proovedor pro6 = new Proovedor(6, "Hospital 6", "Buena", new GregorianCalendar(2018, 5, 19), new GregorianCalendar(2019, 3, 2), 0);
+        Proveedor pro1 = new Proveedor(1, "Hospital 1", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 3, 2), 0);
+        Proveedor pro2 = new Proveedor(2, "Hospital 2", "Buena", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2018, 6, 2), 1);
+        Proveedor pro3 = new Proveedor(3, "Hospital 3", "Mala", new GregorianCalendar(2018, 0, 14), new GregorianCalendar(2018, 0, 23), 0);
+        Proveedor pro4 = new Proveedor(4, "Hospital 4", "Mala", new GregorianCalendar(2018, 3, 9), new GregorianCalendar(2019, 3, 20), 0);
+        Proveedor pro5 = new Proveedor(5, "Hospital 5", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 0, 2), 1);
+        Proveedor pro6 = new Proveedor(6, "Hospital 6", "Buena", new GregorianCalendar(2018, 5, 19), new GregorianCalendar(2019, 3, 2), 0);
 
         listaServicios.add(new Servicio("msl", pro1, "Rayos X", ""));
         listaServicios.add(new Servicio("wei", pro2, "Ultrasonido", ""));
@@ -104,7 +104,7 @@ public class Control {
         System.out.println(listaServicios.get(0).toString());
         //Clasifica los servicios por calidad.
         for (Servicio serv : listaServicios) {
-            Proovedor p = new Proovedor(serv.getProovedor());
+            Proveedor p = new Proveedor(serv.getProovedor());
             if (p.getCalidad().equals("Buena")) {
                 serviciosBuenos.add(serv);
             } else if (p.getCalidad().equals("Regular")) {

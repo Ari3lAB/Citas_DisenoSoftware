@@ -9,6 +9,9 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import objetosNegocio.Paciente;
+import objetosNegocio.Proveedor;
+import objetosNegocio.Proveedor;
+import objetosNegocio.Servicio;
 
 /**
  *
@@ -71,9 +74,54 @@ public class Ceder {
         ps = conexion.prepareStatement(consulta);
         rs = ps.executeQuery();
         
-        System.out.println(rs.getString("folioReceta"));
+        System.out.println(rs.getString(1));
         
-        return Integer.parseInt(rs.getString("folioReceta"));
+        return Integer.parseInt(rs.getString(1));
+        
+    }
+    
+    public ArrayList<Servicio> obtenerServicios() throws SQLException{
+        String consulta = "SELECT s.idProveedor as idProveedor,\n" +
+                            "       s.nombreServicio as nombreServicio,\n" +
+                            "       s.idServicio as idServicio,\n" +
+                            "       s.descripcion as descripcion,\n" +
+                            "       p.nombreProveedor nombreProveedor,\n" +
+                            "       p.calidad as calidad,\n" +
+                            "	   month(p.inicioContrato) as mesI,\n" +
+                        "	   year(p.inicioContrato) as anoI,\n" +
+                        "	   dayofmonth(p.inicioContrato) as diaI,\n" +
+                        "       month(p.finContrato) as mesF,\n" +
+                        "       year(p.inicioContrato) as anoF,\n" +
+                        "       dayofmonth(p.inicioContrato) as diaF\n" +
+                            "\n" +
+                            "FROM Servicio s\n" +
+            "                INNER JOIN Proveedor p\n" +
+            "                WHERE s.idProveedor = p.idProveedor";
+        
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        ps = conexion.prepareStatement(consulta);
+        rs = ps.executeQuery();
+        
+        ArrayList<Servicio> servicios = new ArrayList<>();
+        
+        while(rs.next()){
+            servicios.add(new Servicio(rs.getString("idServicio"),
+                    new Proveedor(rs.getString("nombreProveedor"), rs.getString("idProveedor"),rs.getString("calidad"), 
+                            new Date(Integer.parseInt(rs.getString("anoI")), Integer.parseInt(rs.getString("mesI")), Integer.parseInt(rs.getString("diaI")))     ,
+                            new Date(Integer.parseInt(rs.getString("anoF")), Integer.parseInt(rs.getString("mesF")), Integer.parseInt(rs.getString("diaF")))     ,
+                            Integer.parseInt(rs.getString("numeroOrdenes"))),
+                            
+                    
+                    
+                    
+                    rs.getString("nombreServicio"),rs.getString("descripcion")));
+        }
+        
+        
+        return pacientes;
+        
         
     }
     
