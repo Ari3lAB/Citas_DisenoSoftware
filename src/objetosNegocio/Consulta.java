@@ -51,6 +51,7 @@ public class Consulta {
         return formateada;
     }
 
+    
     public int getNumeroConsulta() {
         return numeroConsulta;
     }
