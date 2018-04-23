@@ -28,7 +28,7 @@ import objetosNegocio.Servicio;
 public class ControlFaçade implements IControl {
 
     private static ControlFaçade INSTANCE = null;
-    private Control control;
+    public Control control;
     private ArrayList<Paciente> listaPacientes;
     
     private ControlFaçade(){

@@ -1,5 +1,6 @@
 package ModuloControl;
 
+import Driver.Ceder;
 import InferfazUsuario.DlgReceta;
 import InferfazUsuario.DlgImpresor;
 import interfaces.IPersistencia;
@@ -32,24 +33,22 @@ public class Control {
     Receta receta;
     ArrayList<Servicio> listaServicios;
     ArrayList<Orden> listaOrdenes;
+    Ceder ceder;
 
     public Control() {
         listaOrdenes= new ArrayList<>();
         persistencia = PersistenciaFacade.getInstance();
         consulta = new Consulta();
         receta = new Receta(new Date());
+        ceder = new Ceder();
     }
 
     public ArrayList<Paciente> obtenerListaCeder(String nss, String nombre) {
 
         Paciente paciente = new Paciente(nss, nombre, null, null);
-        ArrayList<Paciente> pacientes = new ArrayList<>();
+        ArrayList<Paciente> pacientes = new ArrayList<>(ceder.obtenerPacientes());
         ArrayList<Paciente> encontrados = new ArrayList<>();
-        pacientes.add(new Paciente("29384765378", "Jose Lopez", "254434736457", "Calle Newton"));
-        pacientes.add(new Paciente("92837465271", "Pablo Perez", "178643443536", "Calle Pitagoras"));
-        pacientes.add(new Paciente("mm992jwjw99", "Jose Martinez", "1656556456456", "Calle Galileo"));
-        pacientes.add(new Paciente("mmsnhh79297", "Karina Cota", "19283736457", "Calle Emiliano Zapata"));
-        pacientes.add(new Paciente("32300873hh8", "Abel Rosas", "128912357", "Calle Francisco Villa"));
+        
         if (nss != null) {
             if (pacientes.contains(paciente)) {
                 encontrados.add(pacientes.get(pacientes.lastIndexOf(paciente)));
@@ -153,6 +152,9 @@ public class Control {
             impresor.setVisible(true);
         }
 
+    }
+    public Consulta getConsulta(){
+        return this.consulta;
     }
 
 }

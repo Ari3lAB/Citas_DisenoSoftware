@@ -3,6 +3,7 @@ package InferfazUsuario;
 import ModuloControl.ControlFaçade;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
+import objetosNegocio.Consulta;
 import objetosNegocio.Orden;
 
 /**
@@ -16,7 +17,7 @@ public class DlgImpresor extends javax.swing.JDialog {
 
     public DlgImpresor(Frame frame, String titulo, StringBuffer respuesta, Orden orden) {
         super(frame, titulo, true);
-
+Consulta consulta = new Consulta(control.control.getConsulta());
         this.respuesta = respuesta;
         initComponents();
         setLocationRelativeTo(null);
@@ -24,8 +25,7 @@ public class DlgImpresor extends javax.swing.JDialog {
             // setear la receta de consulta.getReceta() al area de texto con formato.
             areaTexto.setText("Receta");
         } else {
-            // setear la orden recibida al area de texto con formato.
-            areaTexto.setText(orden.getNumeroOrden());
+           
         }
 
     }
