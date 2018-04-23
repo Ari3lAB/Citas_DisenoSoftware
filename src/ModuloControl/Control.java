@@ -46,7 +46,7 @@ public class Control {
     public ArrayList<Paciente> obtenerListaCeder(String nss, String nombre) {
 
         Paciente paciente = new Paciente(nss, nombre, null, null);
-        ArrayList<Paciente> pacientes = new ArrayList<>(ceder.obtenerPacientes());
+        ArrayList<Paciente> pacientes = new ArrayList<>(ceder.obtenerPaciente());
         ArrayList<Paciente> encontrados = new ArrayList<>();
         
         if (nss != null) {
@@ -85,12 +85,12 @@ public class Control {
         ArrayList<Servicio> serviciosBuenos = new ArrayList<>();
         ArrayList<Servicio> serviciosRegulares = new ArrayList<>();
         ArrayList<Servicio> serviciosMalos = new ArrayList<>();
-        Proveedor pro1 = new Proveedor(1, "Hospital 1", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 3, 2), 0);
-        Proveedor pro2 = new Proveedor(2, "Hospital 2", "Buena", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2018, 6, 2), 1);
-        Proveedor pro3 = new Proveedor(3, "Hospital 3", "Mala", new GregorianCalendar(2018, 0, 14), new GregorianCalendar(2018, 0, 23), 0);
-        Proveedor pro4 = new Proveedor(4, "Hospital 4", "Mala", new GregorianCalendar(2018, 3, 9), new GregorianCalendar(2019, 3, 20), 0);
-        Proveedor pro5 = new Proveedor(5, "Hospital 5", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 0, 2), 1);
-        Proveedor pro6 = new Proveedor(6, "Hospital 6", "Buena", new GregorianCalendar(2018, 5, 19), new GregorianCalendar(2019, 3, 2), 0);
+        Proveedor pro1 = new Proveedor("a", "Hospital 1", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 3, 2), 0);
+        Proveedor pro2 = new Proveedor("b", "Hospital 2", "Buena", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2018, 6, 2), 1);
+        Proveedor pro3 = new Proveedor("c", "Hospital 3", "Mala", new GregorianCalendar(2018, 0, 14), new GregorianCalendar(2018, 0, 23), 0);
+        Proveedor pro4 = new Proveedor("d", "Hospital 4", "Mala", new GregorianCalendar(2018, 3, 9), new GregorianCalendar(2019, 3, 20), 0);
+        Proveedor pro5 = new Proveedor("e", "Hospital 5", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 0, 2), 1);
+        Proveedor pro6 = new Proveedor("f", "Hospital 6", "Buena", new GregorianCalendar(2018, 5, 19), new GregorianCalendar(2019, 3, 2), 0);
 
         listaServicios.add(new Servicio("msl", pro1, "Rayos X", ""));
         listaServicios.add(new Servicio("wei", pro2, "Ultrasonido", ""));

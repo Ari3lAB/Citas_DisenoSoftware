@@ -72,11 +72,21 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
                 nssjTextFieldActionPerformed(evt);
             }
         });
+        nssjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nssjTextFieldKeyTyped(evt);
+            }
+        });
 
         nombrejTextField.setEnabled(false);
         nombrejTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombrejTextFieldActionPerformed(evt);
+            }
+        });
+        nombrejTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombrejTextFieldKeyTyped(evt);
             }
         });
 
@@ -152,11 +162,11 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nssjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nssjTextFieldActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_nssjTextFieldActionPerformed
 
     private void nombrejTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombrejTextFieldActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_nombrejTextFieldActionPerformed
 
     private void jRadioButtonNssActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNssActionPerformed
@@ -200,6 +210,22 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
         respuesta.append("Cancelar");
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void nssjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nssjTextFieldKeyTyped
+        if(nssjTextField.getText().equals("")){
+            jButtonAceptar.setEnabled(false);
+        }
+        else
+             jButtonAceptar.setEnabled(true);
+    }//GEN-LAST:event_nssjTextFieldKeyTyped
+
+    private void nombrejTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombrejTextFieldKeyTyped
+         if(nombrejTextField.getText().equals("")){
+            jButtonAceptar.setEnabled(false);
+        }
+        else
+             jButtonAceptar.setEnabled(true);
+    }//GEN-LAST:event_nombrejTextFieldKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

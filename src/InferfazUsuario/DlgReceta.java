@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package InferfazUsuario;
+import Driver.Ceder;
 import ModuloControl.ControlFaçade;
 import interfaces.IControl;
 import java.awt.Dimension;
@@ -29,8 +30,9 @@ public class DlgReceta extends javax.swing.JDialog {
 StringBuffer respuesta= new StringBuffer("");
     IControl controlFacade = ControlFaçade.getInstance();
     private Consulta consulta;
-    
+    private Ceder ceder;
     private Receta receta;
+   
     private ArrayList<Servicio> listaServicios;
     ArrayList<Servicio> listaS = new ArrayList<>();
     /**
@@ -41,8 +43,9 @@ StringBuffer respuesta= new StringBuffer("");
         super(parent, titulo, true);
         this.respuesta= respuesta;
         this.consulta = consulta;
-        
+        this.ceder=Ceder.getInstance();
         this.receta= receta;
+        this.receta.setFolioReceta(ceder.obtenerUltimaReceta()+1);
         this.listaServicios = listaServicios;
         initComponents();
         estableceDatos();
