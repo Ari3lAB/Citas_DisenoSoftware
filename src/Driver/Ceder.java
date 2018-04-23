@@ -106,7 +106,7 @@ public class Ceder {
     public ArrayList<Servicio> obtenerServicios() throws SQLException{
         String consulta = "SELECT s.idProveedor as idProveedor,\n" +
                             "       s.nombreServicio as nombreServicio,\n" +
-                            "                  p.nombreServicio,\n      "+
+                            "                  p.numeroOrdenes as numeroOrdenes,\n      "+
                             "       s.idServicio as idServicio,\n" +
                             "       s.descripcion as descripcion,\n" +
                             "       p.nombreProveedor nombreProveedor,\n" +
