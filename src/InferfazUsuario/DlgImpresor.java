@@ -11,25 +11,33 @@ import objetosNegocio.Orden;
  * @author Ariiel AB
  */
 public class DlgImpresor extends javax.swing.JDialog {
-
+    
     private ControlFaçade control = ControlFaçade.getInstance();
     private StringBuffer respuesta;
-
+    
     public DlgImpresor(Frame frame, String titulo, StringBuffer respuesta, Orden orden) {
         super(frame, titulo, true);
-Consulta consulta = new Consulta(control.control.getConsulta());
+        Consulta consulta = new Consulta(control.control.getConsulta());
         this.respuesta = respuesta;
         initComponents();
-        setLocationRelativeTo(null);
         if (orden == null) {
-            // setear la receta de consulta.getReceta() al area de texto con formato.
-            areaTexto.setText("Receta");
+            areaTexto.setText(consulta.formatReceta());
         } else {
-           
+            String formateada = "No. Orden: " + orden.getNumeroOrden()
+                    + "\tNo. Solicitud: " + orden.getNumeroSolicitud()
+                    + "\tFecha solicitud: " + orden.getFechaSolicitud()
+                    + "\nCodigo Proovedor: " + orden.getCodigoProovedor()
+                    + "\tNombre Proovedor:" + orden.getNombreProovedor()
+                    + "\nNombre del paciente: " + orden.getNombrePaciente()
+                    + "\tNSS: " + orden.getNSSPaciente()
+                    + "\nServicio: " + orden.getServicio()
+                    + "\tFecha de entrega: " + orden.getFechaServicio()
+                    + "\nIndicaciones: \n" + orden.getIndicaciones();
+            areaTexto.setText(formateada);
         }
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
