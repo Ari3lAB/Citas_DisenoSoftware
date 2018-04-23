@@ -40,7 +40,7 @@ public class Ceder {
             System.out.println("Error al conectar");
         }
     }
-     public static Ceder getInstance() {
+    public static Ceder getInstance() {
         if (INSTANCE == null) createInstance();
         return INSTANCE;
     }

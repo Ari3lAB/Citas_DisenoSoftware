@@ -6,6 +6,7 @@
 package Driver;
 
 import java.sql.SQLException;
+import objetosNegocio.Consulta;
 import objetosNegocio.Paciente;
 import objetosNegocio.Servicio;
 
@@ -32,8 +33,15 @@ public class PruebaC {
             System.out.println(obtenerServicio.getDescripcion());
             System.out.println(obtenerServicio.getProovedor());
             System.out.println(obtenerServicio.getCodigoServicio());
+            System.out.println("--------------------------------");
+
         }
         System.out.println(bd.obtenerUltimaReceta());
+        
+        
+        Local bd2 = new Local();
+        
+        bd2.insertarReceta(new Consulta());
         
     }
 }

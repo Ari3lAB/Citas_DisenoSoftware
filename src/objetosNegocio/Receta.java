@@ -3,6 +3,7 @@ package objetosNegocio;
 import java.util.ArrayList;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -12,19 +13,19 @@ public class Receta {
 
     private String Diagnostico;
     private String tratamiento;
-    private Date fecha;
+    private GregorianCalendar fecha;
 
     private int folio;
     private static int contadorRecetas = 0;
 
-    public Receta(Date fecha) {
+    public Receta(GregorianCalendar fecha) {
         contadorRecetas++;
         this.folio = contadorRecetas;
         this.fecha = fecha;
 
     }
 
-    public Receta(String diagnostico, Date fecha, String tratamiento) {
+    public Receta(String diagnostico, GregorianCalendar fecha, String tratamiento) {
         contadorRecetas++;
         this.folio = contadorRecetas;
         this.fecha = fecha;
@@ -57,11 +58,11 @@ public class Receta {
         return Diagnostico;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(GregorianCalendar fecha) {
         this.fecha = fecha;
     }
 
-    public Date getFecha() {
+    public GregorianCalendar getFecha() {
         return fecha;
     }
 
