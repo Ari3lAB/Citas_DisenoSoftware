@@ -175,7 +175,7 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
             jRadioButtonNombre.setSelected(false);
             nssjTextField.setEnabled(true);
             nombrejTextField.setEnabled(false);
-            jButtonAceptar.setEnabled(true);
+            
         
     }//GEN-LAST:event_jRadioButtonNssActionPerformed
 
@@ -185,7 +185,7 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
             jRadioButtonNss.setSelected(false);
             nssjTextField.setEnabled(false);
             nombrejTextField.setEnabled(true);
-            jButtonAceptar.setEnabled(true);
+           
             
             /*
         }    }//GEN-LAST:event_jRadioButtonNombreActionPerformed

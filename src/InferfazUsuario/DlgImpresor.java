@@ -12,12 +12,13 @@ import objetosNegocio.Orden;
  */
 public class DlgImpresor extends javax.swing.JDialog {
     
-    private ControlFaçade control = ControlFaçade.getInstance();
+    
     private StringBuffer respuesta;
     
-    public DlgImpresor(Frame frame, String titulo, StringBuffer respuesta, Orden orden) {
+    public DlgImpresor(Frame frame, String titulo, StringBuffer respuesta, Consulta consulta, Orden orden) {
         super(frame, titulo, true);
-        Consulta consulta = new Consulta(control.control.getConsulta());
+
+        
         this.respuesta = respuesta;
         initComponents();
         if (orden == null) {

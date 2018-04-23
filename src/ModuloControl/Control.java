@@ -39,7 +39,7 @@ public class Control {
         listaOrdenes= new ArrayList<>();
         persistencia = PersistenciaFacade.getInstance();
         consulta = new Consulta();
-        receta = new Receta(new Date());
+        receta = new Receta(new GregorianCalendar());
         ceder = new Ceder();
     }
 
@@ -72,7 +72,7 @@ public class Control {
         if (respuesta.toString().equals("Aceptar")) {
             
             for (Servicio servicio : listaServicios) {
-                Orden o = new Orden(servicio.getNombre().substring(0, 2), new Date(), servicio.getProovedor().getCodigo() + "", servicio.getProovedor().getNombre(), consulta.getPaciente().getNombre(), consulta.getPaciente().getNss(), servicio.getNombre(), receta.getTratamiento(), new Date());
+                Orden o = new Orden(servicio.getNombre().substring(0, 2), new Date(), servicio.getProovedor().getCodigo() + "", servicio.getProovedor().getNombre(), consulta.getPaciente().getNombre(), consulta.getPaciente().getNss(), servicio.getCodigoServicio(), receta.getTratamiento(), new Date());
                 listaOrdenes.add(o);
             }
             guardarReceta();
@@ -81,33 +81,17 @@ public class Control {
     }
 
     public ArrayList<Servicio> obtenerServiciosCeder() {
-        ArrayList<Servicio> listaServicios = new ArrayList<>();
+        ArrayList<Servicio> listaServicios = new ArrayList<>(ceder.obtenerServicios());
         ArrayList<Servicio> serviciosBuenos = new ArrayList<>();
         ArrayList<Servicio> serviciosRegulares = new ArrayList<>();
         ArrayList<Servicio> serviciosMalos = new ArrayList<>();
-        Proveedor pro1 = new Proveedor("a", "Hospital 1", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 3, 2), 0);
-        Proveedor pro2 = new Proveedor("b", "Hospital 2", "Buena", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2018, 6, 2), 1);
-        Proveedor pro3 = new Proveedor("c", "Hospital 3", "Mala", new GregorianCalendar(2018, 0, 14), new GregorianCalendar(2018, 0, 23), 0);
-        Proveedor pro4 = new Proveedor("d", "Hospital 4", "Mala", new GregorianCalendar(2018, 3, 9), new GregorianCalendar(2019, 3, 20), 0);
-        Proveedor pro5 = new Proveedor("e", "Hospital 5", "Regular", new GregorianCalendar(2018, 3, 2), new GregorianCalendar(2019, 0, 2), 1);
-        Proveedor pro6 = new Proveedor("f", "Hospital 6", "Buena", new GregorianCalendar(2018, 5, 19), new GregorianCalendar(2019, 3, 2), 0);
-
-        listaServicios.add(new Servicio("msl", pro1, "Rayos X", ""));
-        listaServicios.add(new Servicio("wei", pro2, "Ultrasonido", ""));
-        listaServicios.add(new Servicio("92j", pro3, "Pediatria", ""));
-        listaServicios.add(new Servicio("q82", pro4, "Rayos X", ""));
-        listaServicios.add(new Servicio("lqm", pro5, "Pediatria", ""));
-        listaServicios.add(new Servicio("owe", pro6, "Rayos X", ""));
-        listaServicios.add(new Servicio("902", pro1, "Ultrasonido", ""));
-        listaServicios.add(new Servicio("ams", pro5, "Ultrasonido", ""));
-        listaServicios.add(new Servicio("laa", pro2, "Pediatria", ""));
-        System.out.println(listaServicios.get(0).toString());
+        
         //Clasifica los servicios por calidad.
         for (Servicio serv : listaServicios) {
             Proveedor p = new Proveedor(serv.getProovedor());
-            if (p.getCalidad().equals("Buena")) {
+            if (p.getCalidad().equals("ALTA")) {
                 serviciosBuenos.add(serv);
-            } else if (p.getCalidad().equals("Regular")) {
+            } else if (p.getCalidad().equals("MEDIA")) {
                 serviciosRegulares.add(serv);
             } else {
                 serviciosMalos.add(serv);
@@ -135,20 +119,22 @@ public class Control {
 
     public void guardarReceta() {
         consulta.setReceta(receta);
+        
         consulta.setListaOrdenes(listaOrdenes);
         consulta.setListaServicios(listaServicios);
+        ceder.insertarReceta(consulta.getReceta());
         persistencia.agregar(consulta);
-        System.out.println(consulta.getListaOrdenes());
+        
     }
 
     public void imprimirReceta(Frame frame, StringBuffer respuesta) {
-        DlgImpresor impresor = new DlgImpresor(frame, "Imprimir Receta", respuesta, null);
+        DlgImpresor impresor = new DlgImpresor(frame, "Imprimir Receta", respuesta, consulta, null);
         impresor.setVisible(true);
     }
 
     public void imprimirOrdenes(Frame frame) {
         for (Orden orden : consulta.getListaOrdenes()) {
-            DlgImpresor impresor = new DlgImpresor(frame, "Imprimir Orden", null, orden);
+            DlgImpresor impresor = new DlgImpresor(frame, "Imprimir Orden", null, null, orden);
             impresor.setVisible(true);
         }
 

@@ -81,6 +81,7 @@ public class ControlFaçade implements IControl {
     @Override
     public void imprime(Frame frame, StringBuffer respuesta){
         control.imprimirReceta(frame,respuesta);
+        System.out.println(control.getConsulta().getReceta());
         if(respuesta.toString().equals("Aceptar")){
             System.out.println("Ordenes");
         control.imprimirOrdenes(frame);

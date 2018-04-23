@@ -9,10 +9,13 @@ import ModuloControl.ControlFaçade;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
+import objetosNegocio.Consulta;
 import objetosNegocio.Paciente;
 import objetosNegocio.Proveedor;
 import objetosNegocio.Proveedor;
+import objetosNegocio.Receta;
 import objetosNegocio.Servicio;
 
 /**
@@ -103,7 +106,8 @@ public class Ceder {
         
     }
     
-    public ArrayList<Servicio> obtenerServicios() throws SQLException{
+    public ArrayList<Servicio> obtenerServicios() {
+        ArrayList<Servicio> servicios = new ArrayList<>();
         String consulta = "SELECT s.idProveedor as idProveedor,\n" +
                             "       s.nombreServicio as nombreServicio,\n" +
                             "                  p.numeroOrdenes as numeroOrdenes,\n      "+
@@ -124,15 +128,15 @@ public class Ceder {
         
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+        try{
         ps = conexion.prepareStatement(consulta);
         rs = ps.executeQuery();
         
-        ArrayList<Servicio> servicios = new ArrayList<>();
+        
         
         while(rs.next()){
             servicios.add(new Servicio(rs.getString("idServicio"),
-                    new Proveedor(rs.getString("nombreProveedor"), rs.getString("idProveedor"),rs.getString("calidad"), 
+                    new Proveedor(rs.getString("idProveedor"), rs.getString("nombreProveedor"),rs.getString("calidad"), 
                             new GregorianCalendar(Integer.parseInt(rs.getString("anoI")), Integer.parseInt(rs.getString("mesI")), Integer.parseInt(rs.getString("diaI")))     ,
                             new GregorianCalendar(Integer.parseInt(rs.getString("anoF")), Integer.parseInt(rs.getString("mesF")), Integer.parseInt(rs.getString("diaF")))     ,
                             Integer.parseInt(rs.getString("numeroOrdenes"))),
@@ -143,8 +147,42 @@ public class Ceder {
                     rs.getString("nombreServicio"),rs.getString("descripcion")));
         }
         
-        
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         return servicios;
+        
+        
+    }
+    public void insertarReceta(Receta receta) {
+        
+        String ano = String.valueOf(receta.getFecha().get(Calendar.YEAR));
+        String mes = "";
+        String dia = "";
+        String diagnostico = receta.getDianostico();
+        String tratamiento = receta.getTratamiento();
+        
+        try{
+        if(receta.getFecha().get(Calendar.MONTH) < 10){
+            mes = "0"+String.valueOf(receta.getFecha().get(Calendar.MONTH));
+        }else{
+            mes = String.valueOf(receta.getFecha().get(Calendar.MONTH));
+        }
+        
+        if(receta.getFecha().get(Calendar.DAY_OF_MONTH) < 10){
+            dia = "0"+String.valueOf(receta.getFecha().get(Calendar.DAY_OF_MONTH));
+        }else{
+            dia = String.valueOf(receta.getFecha().get(Calendar.DAY_OF_MONTH));
+        }
+        
+        String fecha = ano+"-"+mes+"-"+dia;
+        PreparedStatement query = conexion.prepareStatement("INSERT INTO Receta(diagnostico,tratamiento,fechaReceta)  VALUES('"+diagnostico+"','"+tratamiento+"','"+fecha+"')");
+        
+        query.executeUpdate();
+    }catch(SQLException e){
+            System.out.println(e.getMessage());
+            } 
+       
         
         
     }
