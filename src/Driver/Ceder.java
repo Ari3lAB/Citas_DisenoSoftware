@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import objetosNegocio.Consulta;
+import objetosNegocio.Orden;
 import objetosNegocio.Paciente;
 import objetosNegocio.Proveedor;
 import objetosNegocio.Proveedor;
@@ -186,6 +187,70 @@ public class Ceder {
         
         
     }
+    public void insertaOrden(Consulta consulta) {
+        
+        
+        
+        
+        for (Orden ordene : consulta.getListaOrdenes()) {
+            
+            String anosS = String.valueOf(ordene.getFechaSolicitud().get(Calendar.YEAR));
+            String mesS = "";
+            String diasS = "";
+            
+            String ano2 = String.valueOf(ordene.getFechaServicio().get(Calendar.YEAR));
+            String mes2 = "";
+            String dias2 = "";
+            
+            if(ordene.getFechaSolicitud().get(Calendar.MONTH) < 10){
+            mesS = "0"+String.valueOf(ordene.getFechaSolicitud().get(Calendar.MONTH)+1);
+            }else{
+            mesS = String.valueOf(ordene.getFechaSolicitud().get(Calendar.MONTH)+1);
+            }
+        
+            if(ordene.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) < 10){
+            diasS = "0"+String.valueOf(ordene.getFechaSolicitud().get(Calendar.DAY_OF_MONTH));
+            }else{
+            diasS = String.valueOf(ordene.getFechaSolicitud().get(Calendar.DAY_OF_MONTH));
+            }
+            
+            ///////////////////////////////////////////////////////////////////////////
+            
+            if(ordene.getFechaServicio().get(Calendar.MONTH) < 10){
+            mes2 = "0"+String.valueOf(ordene.getFechaServicio().get(Calendar.MONTH)+1);
+            }else{
+            mes2 = String.valueOf(ordene.getFechaServicio().get(Calendar.MONTH)+1);
+            }
+        
+            if(ordene.getFechaServicio().get(Calendar.DAY_OF_MONTH) < 10){
+            dias2 = "0"+String.valueOf(ordene.getFechaServicio().get(Calendar.DAY_OF_MONTH));
+            }else{
+            dias2 = String.valueOf(ordene.getFechaServicio().get(Calendar.DAY_OF_MONTH));
+            }
+            
+            
+            String codigoProveedor = ordene.getCodigoProovedor();
+            String fechaSolicitud = anosS+"-"+mesS+"-"+diasS;
+            //Numero de Solicitud se autogenera
+            String idServicio = ordene.getServicio();
+            String fechaServicio = ano2+"-"+mes2+"-"+dias2;
+            String indicaciones = ordene.getIndicaciones();
+            String nssPaciente = ordene.getNSSPaciente();
+            String numConsulta = String.valueOf(consulta.getNumeroConsulta());
+            String numeroOrden = ordene.getNumeroOrden();
+            int folioReceta = consulta.getReceta().getFolio();
+            try{
+            PreparedStatement query = conexion.prepareStatement("INSERT INTO Orden (idProveedor,fechaSolicitud,idServicio,fechaServicio,indicaciones,nssPaciente,folioReceta,numeroOrden)"
+                                                                    + " VALUES('"+codigoProveedor+"','"+fechaSolicitud+"','"+idServicio+"','"+fechaServicio+"','"+indicaciones+"','"+nssPaciente+"',"+folioReceta+",'"+numeroOrden+"')");
+        
+            query.executeUpdate();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+            
+            
+        }
     
     
 }

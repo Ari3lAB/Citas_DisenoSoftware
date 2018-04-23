@@ -72,7 +72,7 @@ public class Control {
         if (respuesta.toString().equals("Aceptar")) {
             
             for (Servicio servicio : listaServicios) {
-                Orden o = new Orden(servicio.getNombre().substring(0, 2), new Date(), servicio.getProovedor().getCodigo() + "", servicio.getProovedor().getNombre(), consulta.getPaciente().getNombre(), consulta.getPaciente().getNss(), servicio.getCodigoServicio(), receta.getTratamiento(), new Date());
+                Orden o = new Orden(servicio.getNombre().substring(0, 3), new GregorianCalendar(), servicio.getProovedor().getCodigo() + "", servicio.getProovedor().getNombre(), consulta.getPaciente().getNombre(), consulta.getPaciente().getNss(), servicio.getCodigoServicio(), receta.getTratamiento(), new GregorianCalendar());
                 listaOrdenes.add(o);
             }
             guardarReceta();
@@ -123,6 +123,7 @@ public class Control {
         consulta.setListaOrdenes(listaOrdenes);
         consulta.setListaServicios(listaServicios);
         ceder.insertarReceta(consulta.getReceta());
+        ceder.insertaOrden(consulta);
         persistencia.agregar(consulta);
         
     }
