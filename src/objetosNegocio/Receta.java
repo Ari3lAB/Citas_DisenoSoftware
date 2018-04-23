@@ -10,12 +10,13 @@ import java.util.Date;
  */
 public class Receta {
 
-    protected String Diagnostico;
-    protected String tratamiento;
-    protected Date fecha;
+    private String Diagnostico;
+    private String tratamiento;
+    private Date fecha;
 
-    protected int folio;
-    private static int contadorRecetas=0;
+    private int folio;
+    private static int contadorRecetas = 0;
+
     public Receta(Date fecha) {
         contadorRecetas++;
         this.folio = contadorRecetas;
@@ -71,8 +72,6 @@ public class Receta {
     public String getTratamiento() {
         return tratamiento;
     }
-
-    
 
     @Override
     public int hashCode() {

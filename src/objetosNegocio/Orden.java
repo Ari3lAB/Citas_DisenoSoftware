@@ -10,18 +10,18 @@ import java.util.Date;
  */
 public class Orden {
 
-    protected String numeroOrden;//3 primeras letras del nombre de servicio
-    protected String codigoProovedor;
-    protected Date fechaSolicitud;
-    protected int numeroSolicitud;
-    protected String nombreProovedor;
-    protected String nombrePaciente;
-    protected String NSSPaciente;
-    protected String servicio;
-    protected String indicaciones;
-    protected Date fechaServicio;
-    
-    private static int contadorOrdenes=0;
+    private String numeroOrden;//3 primeras letras del nombre de servicio
+    private String codigoProovedor;
+    private Date fechaSolicitud;
+    private int numeroSolicitud;
+    private String nombreProovedor;
+    private String nombrePaciente;
+    private String NSSPaciente;
+    private String servicio;
+    private String indicaciones;
+    private Date fechaServicio;
+
+    private static int contadorOrdenes = 0;
 
     public Orden() {
         contadorOrdenes++;
@@ -30,11 +30,11 @@ public class Orden {
 
     public Orden(String numeroOrden,
             Date fechaSolicitud, String codigoProovedor, String nombreProovedor, String nombrePaciente,
-            String NSSPaciente, String servicio, String indicaciones,Date fechaServicio) {
+            String NSSPaciente, String servicio, String indicaciones, Date fechaServicio) {
         contadorOrdenes++;
         this.numeroSolicitud = contadorOrdenes;
         this.numeroOrden = numeroOrden;
-        
+
         this.fechaSolicitud = fechaSolicitud;
         this.codigoProovedor = codigoProovedor;
         this.nombreProovedor = nombreProovedor;
@@ -54,7 +54,7 @@ public class Orden {
         this.nombrePaciente = orden.getNombrePaciente();
         this.NSSPaciente = orden.getNSSPaciente();
         this.servicio = orden.getServicio();
-         this.indicaciones = orden.getIndicaciones();
+        this.indicaciones = orden.getIndicaciones();
         this.fechaServicio = orden.getFechaServicio();
     }
 
