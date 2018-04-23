@@ -146,10 +146,14 @@ public class Local {
     }
     
     
-    public void insertarConsulta(Consulta consulta){
+    public void insertarConsulta(Consulta consulta) throws SQLException{
         String nssPaciente = consulta.getPaciente().getNss();
-        String folioReceta = valueOf(consulta.getReceta().getFolio());
+        int folioReceta = consulta.getReceta().getFolio();
         
+        PreparedStatement query = conexion.prepareStatement("INSERT INTO Consulta (nssPaciente,folioReceta)"
+                                                                    + "VALUES("+nssPaciente+","+folioReceta+"");
+        
+        query.executeUpdate();
         
     }
     
