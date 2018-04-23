@@ -26,5 +26,8 @@ public class PruebaC {
             System.out.println("------------------------------");
            
         }
+        
+        System.out.println(bd.obtenerUltimaReceta());
+        
     }
 }

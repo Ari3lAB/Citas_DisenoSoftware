@@ -50,7 +50,6 @@ public class Ceder {
         
         ps = conexion.prepareStatement(consulta);
         rs = ps.executeQuery();
-        ResultSetMetaData rsmd = rs.getMetaData();
         
         ArrayList<Paciente> pacientes = new ArrayList<>();
         
@@ -63,7 +62,21 @@ public class Ceder {
         
     }
     
-    
+    public int obtenerUltimaReceta() throws SQLException{
+        String consulta = "SELECT MAX(folioReceta) = folioReceta" +
+                          "FROM Receta";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ps = conexion.prepareStatement(consulta);
+        rs = ps.executeQuery();
+        
+        if(rs.getString("MAX(folioReceta)") == null){
+            return 1;
+        }
+        
+        return Integer.parseInt(rs.getString("MAX(folioReceta)"));
+        
+    }
     
     
 }
