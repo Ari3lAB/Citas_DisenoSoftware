@@ -9,10 +9,10 @@ import java.util.Objects;
  */
 public class Servicio {
     
-    protected Proovedor proovedor;
-    protected String nombre;
-    protected String descripcion;
-    protected String codigoServicio;
+    private Proovedor proovedor;
+    private String nombre;
+    private String descripcion;
+    private String codigoServicio;
 
     public Servicio(String codigoServicio) {
         this.codigoServicio = codigoServicio;

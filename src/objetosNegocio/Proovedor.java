@@ -15,13 +15,13 @@ import java.util.Objects;
  */
 public class Proovedor {
 
-    protected int codigo;
-    protected String calidad;
-    protected GregorianCalendar inicioContrato;
-    protected GregorianCalendar finContrato;
-    protected int numOrdenes;
-    protected int diasContrato;
-    protected String nombre;
+    private int codigo;
+    private String calidad;
+    private GregorianCalendar inicioContrato;
+    private GregorianCalendar finContrato;
+    private int numOrdenes;
+    private int diasContrato;
+    private String nombre;
 
     public Proovedor(int codigo) {
         this.codigo = codigo;

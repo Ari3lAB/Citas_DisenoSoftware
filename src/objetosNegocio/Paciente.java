@@ -8,10 +8,10 @@ import java.util.Objects;
  */
 public class Paciente {
 
-    protected String nss;
-    protected String nombre;
-    protected String telefono;
-    protected String direccion;
+    private String nss;
+    private String nombre;
+    private String telefono;
+    private String direccion;
     
 
     public Paciente(String nss) {

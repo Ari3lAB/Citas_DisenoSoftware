@@ -1,7 +1,6 @@
 package InferfazUsuario;
 
 import ModuloControl.ControlFaçade;
-import SistemaImpresion.ControlImpresion;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 import objetosNegocio.Orden;
@@ -46,6 +45,7 @@ public class DlgImpresor extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        areaTexto.setEditable(false);
         areaTexto.setColumns(20);
         areaTexto.setRows(5);
         jScrollPane1.setViewportView(areaTexto);
