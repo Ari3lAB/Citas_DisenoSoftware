@@ -5,12 +5,15 @@
  */
 package Driver;
 
+import static java.lang.String.valueOf;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import objetosNegocio.Consulta;
+import objetosNegocio.Orden;
 
 /**
  *
@@ -56,9 +59,9 @@ public class Local {
         
         
         if(consulta.getReceta().getFecha().get(Calendar.MONTH) < 10){
-            mes = "0"+String.valueOf(consulta.getReceta().getFecha().get(Calendar.MONTH));
+            mes = "0"+String.valueOf(consulta.getReceta().getFecha().get(Calendar.MONTH+1));
         }else{
-            mes = String.valueOf(consulta.getReceta().getFecha().get(Calendar.MONTH));
+            mes = String.valueOf(consulta.getReceta().getFecha().get(Calendar.MONTH+1));
         }
         
         if(consulta.getReceta().getFecha().get(Calendar.DAY_OF_MONTH) < 10){
@@ -73,6 +76,79 @@ public class Local {
         query.executeUpdate();
         
        
+        
+        
+    }
+    
+    public void insertaOrden(Consulta consulta) throws SQLException{
+        
+        
+        
+        
+        for (Orden ordene : consulta.getListaOrdenes()) {
+            
+            String anosS = String.valueOf(ordene.getFechaSolicitud().get(Calendar.YEAR));
+            String mesS = "";
+            String diasS = "";
+            
+            String ano2 = String.valueOf(ordene.getFechaServicio().get(Calendar.YEAR));
+            String mes2 = "";
+            String dias2 = "";
+            
+            if(ordene.getFechaSolicitud().get(Calendar.MONTH) < 10){
+            mesS = "0"+String.valueOf(ordene.getFechaSolicitud().get(Calendar.MONTH)+1);
+            }else{
+            mesS = String.valueOf(ordene.getFechaSolicitud().get(Calendar.MONTH)+1);
+            }
+        
+            if(ordene.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) < 10){
+            diasS = "0"+String.valueOf(ordene.getFechaSolicitud().get(Calendar.DAY_OF_MONTH));
+            }else{
+            diasS = String.valueOf(ordene.getFechaSolicitud().get(Calendar.DAY_OF_MONTH));
+            }
+            
+            ///////////////////////////////////////////////////////////////////////////
+            
+            if(ordene.getFechaServicio().get(Calendar.MONTH) < 10){
+            mes2 = "0"+String.valueOf(ordene.getFechaServicio().get(Calendar.MONTH)+1);
+            }else{
+            mes2 = String.valueOf(ordene.getFechaServicio().get(Calendar.MONTH)+1);
+            }
+        
+            if(ordene.getFechaServicio().get(Calendar.DAY_OF_MONTH) < 10){
+            dias2 = "0"+String.valueOf(ordene.getFechaServicio().get(Calendar.DAY_OF_MONTH));
+            }else{
+            dias2 = String.valueOf(ordene.getFechaServicio().get(Calendar.DAY_OF_MONTH));
+            }
+            
+            
+            String codigoProveedor = ordene.getCodigoProovedor();
+            String fechaSolicitud = anosS+"-"+mesS+"-"+diasS;
+            //Numero de Solicitud se autogenera
+            String idServicio = ordene.getServicio();
+            String fechaServicio = ano2+"-"+mes2+"-"+dias2;
+            String indicaciones = ordene.getIndicaciones();
+            String nssPaciente = ordene.getNSSPaciente();
+            String numConsulta = String.valueOf(consulta.getNumeroConsulta());
+
+            
+            PreparedStatement query = conexion.prepareStatement("INSERT INTO Orden (idProveedor,fechaSolicitud,idServicio,fechaServicio,indicaciones,nssPaciente,numConsulta)"
+                                                                    + "VALUES("+codigoProveedor+","+fechaSolicitud+","+idServicio+","+fechaServicio+","+indicaciones+","+nssPaciente+","+numConsulta+"");
+        
+            query.executeUpdate();
+            
+            
+            
+        }
+            
+                
+        
+    }
+    
+    
+    public void insertarConsulta(Consulta consulta){
+        String nssPaciente = consulta.getPaciente().getNss();
+        String folioReceta = valueOf(consulta.getReceta().getFolio());
         
         
     }

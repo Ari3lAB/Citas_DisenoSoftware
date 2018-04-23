@@ -3,6 +3,7 @@ package objetosNegocio;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -12,14 +13,14 @@ public class Orden {
 
     private String numeroOrden;//3 primeras letras del nombre de servicio
     private String codigoProovedor;
-    private Date fechaSolicitud;
+    private GregorianCalendar fechaSolicitud;
     private int numeroSolicitud;
     private String nombreProovedor;
     private String nombrePaciente;
     private String NSSPaciente;
     private String servicio;
     private String indicaciones;
-    private Date fechaServicio;
+    private GregorianCalendar fechaServicio;
 
     private static int contadorOrdenes = 0;
 
@@ -29,8 +30,8 @@ public class Orden {
     }
 
     public Orden(String numeroOrden,
-            Date fechaSolicitud, String codigoProovedor, String nombreProovedor, String nombrePaciente,
-            String NSSPaciente, String servicio, String indicaciones, Date fechaServicio) {
+            GregorianCalendar fechaSolicitud, String codigoProovedor, String nombreProovedor, String nombrePaciente,
+            String NSSPaciente, String servicio, String indicaciones, GregorianCalendar fechaServicio) {
         contadorOrdenes++;
         this.numeroSolicitud = contadorOrdenes;
         this.numeroOrden = numeroOrden;
@@ -74,11 +75,11 @@ public class Orden {
         this.codigoProovedor = codigoProovedor;
     }
 
-    public Date getFechaSolicitud() {
+    public GregorianCalendar getFechaSolicitud() {
         return fechaSolicitud;
     }
 
-    public void setFechaSolicitud(Date fechaSolicitud) {
+    public void setFechaSolicitud(GregorianCalendar fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
 
@@ -130,11 +131,11 @@ public class Orden {
         this.indicaciones = indicaciones;
     }
 
-    public Date getFechaServicio() {
+    public GregorianCalendar getFechaServicio() {
         return fechaServicio;
     }
 
-    public void setFechaServicio(Date fechaServicio) {
+    public void setFechaServicio(GregorianCalendar fechaServicio) {
         this.fechaServicio = fechaServicio;
     }
 
