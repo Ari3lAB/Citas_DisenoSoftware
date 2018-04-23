@@ -9,12 +9,14 @@ import ModuloControl.ControlFaçade;
 import interfaces.IControl;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.naming.ldap.ControlFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
 import objetosNegocio.Consulta;
@@ -43,7 +45,12 @@ StringBuffer respuesta= new StringBuffer("");
         super(parent, titulo, true);
         this.respuesta= respuesta;
         this.consulta = consulta;
-        this.ceder=Ceder.getInstance();
+        try {
+            this.ceder=Ceder.getInstance();
+        } catch (Exception e) {
+            
+        }
+        
         this.receta= receta;
         this.receta.setFolioReceta(ceder.obtenerUltimaReceta()+1);
         this.listaServicios = listaServicios;

@@ -5,6 +5,7 @@ import ModuloControl.ControlFaçade;
 import interfaces.IControl;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -128,12 +129,13 @@ public class FrmReceta extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void consultaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaMenuItemActionPerformed
-
+try{
         while (true) {
             StringBuffer respuesta = new StringBuffer("");
             DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
             dialog.setVisible(true);
             if (respuesta.toString().equals("Aceptar")) {
+               
                 if (!controlFacade.getListaPacientes().isEmpty()) {
                     respuesta = new StringBuffer("");
                     DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente", respuesta);
@@ -156,7 +158,11 @@ public class FrmReceta extends javax.swing.JFrame {
             } else {
                 break;
             }
+        
         }
+}catch(SQLException e){
+    
+}
     }/*
         dialog.setVisible(true);    }//GEN-LAST:event_consultaMenuItemActionPerformed
 */
@@ -168,9 +174,13 @@ public class FrmReceta extends javax.swing.JFrame {
 
         while (true) {
             StringBuffer respuesta = new StringBuffer("");
+            try{
             DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
             dialog.setVisible(true);
+            if(respuesta.toString().equals("EX"))
+                throw  new SQLException();
             if (respuesta.toString().equals("Aceptar")) {
+                
                 if (!controlFacade.getListaPacientes().isEmpty()) {
                     respuesta = new StringBuffer("");
                     DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente", respuesta);
@@ -185,15 +195,24 @@ public class FrmReceta extends javax.swing.JFrame {
                         }
                     } 
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
-
+                     JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
+                    
                 }
+                
 
             } else {
                 break;
             }
+            }catch(SQLException e){
+               
+    JOptionPane.showMessageDialog(this, "ERROR: No se pudo conectar a la base de datos externa.");
+    
+}catch(NullPointerException e){
+    JOptionPane.showMessageDialog(this, "ERROR: No se pudo conectar a la base de datos externa.");
+}
         }
         controlFacade.setControl(new Control());
+
         /*
         dialog.setVisible(true);    }                                                
          */

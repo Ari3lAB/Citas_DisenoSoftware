@@ -1,10 +1,12 @@
 package ModuloControl;
 
 import Driver.Ceder;
+import Driver.Local;
 import InferfazUsuario.DlgReceta;
 import InferfazUsuario.DlgImpresor;
 import interfaces.IPersistencia;
 import java.awt.Frame;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,17 +36,19 @@ public class Control {
     ArrayList<Servicio> listaServicios;
     ArrayList<Orden> listaOrdenes;
     Ceder ceder;
+    Local local;
 
     public Control() {
         listaOrdenes= new ArrayList<>();
         persistencia = PersistenciaFacade.getInstance();
         consulta = new Consulta();
         receta = new Receta(new GregorianCalendar());
-        ceder = new Ceder();
+        
+        local = Local.getInstance();
     }
 
-    public ArrayList<Paciente> obtenerListaCeder(String nss, String nombre) {
-
+    public ArrayList<Paciente> obtenerListaCeder(String nss, String nombre) throws SQLException, ClassNotFoundException{
+        ceder = new Ceder();
         Paciente paciente = new Paciente(nss, nombre, null, null);
         ArrayList<Paciente> pacientes = new ArrayList<>(ceder.obtenerPaciente());
         ArrayList<Paciente> encontrados = new ArrayList<>();
@@ -123,7 +127,11 @@ public class Control {
         consulta.setListaOrdenes(listaOrdenes);
         consulta.setListaServicios(listaServicios);
         ceder.insertarReceta(consulta.getReceta());
+        local.insertarReceta(consulta.getReceta());
         ceder.insertaOrden(consulta);
+        local.insertaOrden(consulta);
+        ceder.insertarConsulta(consulta);
+        local.insertarConsulta(consulta);
         persistencia.agregar(consulta);
         
     }

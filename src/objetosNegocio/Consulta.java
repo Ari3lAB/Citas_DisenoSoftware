@@ -1,6 +1,7 @@
 package objetosNegocio;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -42,7 +43,22 @@ public class Consulta {
             servicios.append(orden.getServicio()).append("\n");
 
         }
-        String formateada = "Folio: " + receta.getFolio() + "\t\tFecha: " + receta.getFecha() + "\n"
+        String mes, dia;
+        String ano = String.valueOf(receta.getFecha().get(Calendar.YEAR));
+         if(receta.getFecha().get(Calendar.MONTH) < 10){
+            mes = "0"+String.valueOf(receta.getFecha().get(Calendar.MONTH));
+        }else{
+            mes = String.valueOf(receta.getFecha().get(Calendar.MONTH));
+        }
+        
+        if(receta.getFecha().get(Calendar.DAY_OF_MONTH) < 10){
+            dia = "0"+String.valueOf(receta.getFecha().get(Calendar.DAY_OF_MONTH));
+        }else{
+            dia = String.valueOf(receta.getFecha().get(Calendar.DAY_OF_MONTH));
+        }
+        
+        String fecha = ano+"-"+mes+"-"+dia;
+        String formateada = "Folio: " + receta.getFolio() + "\t\tFecha: " + fecha + "\n"
                 + "Paciente: " + paciente.getNombre() + "\t" + "NSS: " + paciente.getNss() + "\n"
                 + "Direccion: " + paciente.getDireccion() + "Telefono: " + paciente.getTelefono() + "\n"
                 + "Diagnóstico:\n" + receta.getDianostico() + "\n\n"

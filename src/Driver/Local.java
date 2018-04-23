@@ -14,12 +14,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import objetosNegocio.Consulta;
 import objetosNegocio.Orden;
+import objetosNegocio.Receta;
 
 /**
  *
  * @author duzk
  */
 public class Local {
+      private static Local INSTANCE = null;
     private static Connection conexion;
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String user = "rob";
@@ -39,7 +41,20 @@ public class Local {
             System.out.println("Error al conectar");
         }
     }
-    
+    public static Local getInstance() {
+        if (INSTANCE == null) createInstance();
+        return INSTANCE;
+    }
+  
+    private static void createInstance() {
+        if (INSTANCE == null) {
+            // Sólo se accede a la zona sincronizada
+            // cuando la instancia no está creada
+                if (INSTANCE == null) { 
+                    INSTANCE = new Local();
+                }
+            }
+        }
      public Connection getConnection(){
         return conexion;
     }
@@ -49,38 +64,39 @@ public class Local {
         if(conexion == null) System.out.println("bye plebes");
     } 
     
-    public void insertarReceta(Consulta consulta) throws SQLException{
+    public void insertarReceta(Receta receta) {
         
-        String ano = String.valueOf(consulta.getReceta().getFecha().get(Calendar.YEAR));
+        String ano = String.valueOf(receta.getFecha().get(Calendar.YEAR));
         String mes = "";
         String dia = "";
-        String diagnostico = consulta.getReceta().getDianostico();
-        String tratamiento = consulta.getReceta().getTratamiento();
+        String diagnostico = receta.getDianostico();
+        String tratamiento = receta.getTratamiento();
         
-        
-        if(consulta.getReceta().getFecha().get(Calendar.MONTH) < 10){
-            mes = "0"+String.valueOf(consulta.getReceta().getFecha().get(Calendar.MONTH+1));
+        try{
+        if(receta.getFecha().get(Calendar.MONTH) < 10){
+            mes = "0"+String.valueOf(receta.getFecha().get(Calendar.MONTH));
         }else{
-            mes = String.valueOf(consulta.getReceta().getFecha().get(Calendar.MONTH+1));
+            mes = String.valueOf(receta.getFecha().get(Calendar.MONTH));
         }
         
-        if(consulta.getReceta().getFecha().get(Calendar.DAY_OF_MONTH) < 10){
-            dia = "0"+String.valueOf(consulta.getReceta().getFecha().get(Calendar.DAY_OF_MONTH));
+        if(receta.getFecha().get(Calendar.DAY_OF_MONTH) < 10){
+            dia = "0"+String.valueOf(receta.getFecha().get(Calendar.DAY_OF_MONTH));
         }else{
-            dia = String.valueOf(consulta.getReceta().getFecha().get(Calendar.DAY_OF_MONTH));
+            dia = String.valueOf(receta.getFecha().get(Calendar.DAY_OF_MONTH));
         }
         
-        String fecha = ano+mes+dia;
-        PreparedStatement query = conexion.prepareStatement("INSERT INTO Receta(diagnostico,tratamiento,fechaReceta)  VALUES("+diagnostico+","+tratamiento+","+fecha+")");
+        String fecha = ano+"-"+mes+"-"+dia;
+        PreparedStatement query = conexion.prepareStatement("INSERT INTO Receta(diagnostico,tratamiento,fechaReceta)  VALUES('"+diagnostico+"','"+tratamiento+"','"+fecha+"')");
         
         query.executeUpdate();
-        
+    }catch(SQLException e){
+            System.out.println(e.getMessage());
+            } 
        
         
         
     }
-    
-    public void insertaOrden(Consulta consulta) throws SQLException{
+    public void insertaOrden(Consulta consulta) {
         
         
         
@@ -130,32 +146,32 @@ public class Local {
             String indicaciones = ordene.getIndicaciones();
             String nssPaciente = ordene.getNSSPaciente();
             String numConsulta = String.valueOf(consulta.getNumeroConsulta());
-
-            
-            PreparedStatement query = conexion.prepareStatement("INSERT INTO Orden (idProveedor,fechaSolicitud,idServicio,fechaServicio,indicaciones,nssPaciente,numConsulta)"
-                                                                    + "VALUES("+codigoProveedor+","+fechaSolicitud+","+idServicio+","+fechaServicio+","+indicaciones+","+nssPaciente+","+numConsulta+"");
+            String numeroOrden = ordene.getNumeroOrden();
+            int folioReceta = consulta.getReceta().getFolio();
+            try{
+            PreparedStatement query = conexion.prepareStatement("INSERT INTO Orden (idProveedor,fechaSolicitud,idServicio,fechaServicio,indicaciones,nssPaciente,folioReceta,numeroOrden)"
+                                                                    + " VALUES('"+codigoProveedor+"','"+fechaSolicitud+"','"+idServicio+"','"+fechaServicio+"','"+indicaciones+"','"+nssPaciente+"',"+folioReceta+",'"+numeroOrden+"')");
         
             query.executeUpdate();
-            
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
             
             
         }
-            
-                
-        
-    }
-    
-    
-    public void insertarConsulta(Consulta consulta) throws SQLException{
+    public void insertarConsulta(Consulta consulta){
         String nssPaciente = consulta.getPaciente().getNss();
         int folioReceta = consulta.getReceta().getFolio();
-        
+        try{
         PreparedStatement query = conexion.prepareStatement("INSERT INTO Consulta (nssPaciente,folioReceta)"
-                                                                    + "VALUES("+nssPaciente+","+folioReceta+"");
+                                                                    + "VALUES('"+nssPaciente+"',"+folioReceta+")");
         
         query.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         
     }
-    
     
 }

@@ -2,6 +2,7 @@ package InferfazUsuario;
 
 import ModuloControl.ControlFaçade;
 import java.awt.Frame;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import objetosNegocio.Consulta;
 import objetosNegocio.Orden;
@@ -24,15 +25,46 @@ public class DlgImpresor extends javax.swing.JDialog {
         if (orden == null) {
             areaTexto.setText(consulta.formatReceta());
         } else {
+            String mes, dia;
+        String ano = String.valueOf(orden.getFechaSolicitud().get(Calendar.YEAR));
+         if(orden.getFechaSolicitud().get(Calendar.MONTH) < 10){
+            mes = "0"+String.valueOf(orden.getFechaSolicitud().get(Calendar.MONTH));
+        }else{
+            mes = String.valueOf(orden.getFechaSolicitud().get(Calendar.MONTH));
+        }
+        
+        if(orden.getFechaSolicitud().get(Calendar.DAY_OF_MONTH) < 10){
+            dia = "0"+String.valueOf(orden.getFechaSolicitud().get(Calendar.DAY_OF_MONTH));
+        }else{
+            dia = String.valueOf(orden.getFechaSolicitud().get(Calendar.DAY_OF_MONTH));
+        }
+        
+        String fecha1 = ano+"-"+mes+"-"+dia;
+        
+        
+        ano = String.valueOf(orden.getFechaServicio().get(Calendar.YEAR));
+         if(orden.getFechaServicio().get(Calendar.MONTH) < 10){
+            mes = "0"+String.valueOf(orden.getFechaServicio().get(Calendar.MONTH));
+        }else{
+            mes = String.valueOf(orden.getFechaServicio().get(Calendar.MONTH));
+        }
+        
+        if(orden.getFechaServicio().get(Calendar.DAY_OF_MONTH) < 10){
+            dia = "0"+String.valueOf(orden.getFechaServicio().get(Calendar.DAY_OF_MONTH));
+        }else{
+            dia = String.valueOf(orden.getFechaServicio().get(Calendar.DAY_OF_MONTH));
+        }
+        
+        String fecha2 = ano+"-"+mes+"-"+dia;
             String formateada = "No. Orden: " + orden.getNumeroOrden()
                     + "\tNo. Solicitud: " + orden.getNumeroSolicitud()
-                    + "\tFecha solicitud: " + orden.getFechaSolicitud()
+                    + "\tFecha solicitud: " + fecha1
                     + "\nCodigo Proovedor: " + orden.getCodigoProovedor()
                     + "\tNombre Proovedor:" + orden.getNombreProovedor()
                     + "\nNombre del paciente: " + orden.getNombrePaciente()
                     + "\tNSS: " + orden.getNSSPaciente()
                     + "\nServicio: " + orden.getServicio()
-                    + "\tFecha de entrega: " + orden.getFechaServicio()
+                    + "\tFecha de entrega: " + fecha2
                     + "\nIndicaciones: \n" + orden.getIndicaciones();
             areaTexto.setText(formateada);
         }
@@ -78,16 +110,15 @@ public class DlgImpresor extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(181, 181, 181)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(407, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

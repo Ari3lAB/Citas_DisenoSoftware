@@ -32,24 +32,22 @@ public class Ceder {
     private static final String password = "rob123";
     private static final String url = "jdbc:mysql://guerrerorob.ddns.net:3306/CEDER";
     
-    public Ceder(){
+    public Ceder() throws SQLException, ClassNotFoundException{
         conexion = null;
-        try{
+        
             Class.forName(driver);
             conexion = DriverManager.getConnection(url, user, password);
             if(conexion != null){
                 System.out.println("Conexion establecida");
             }
-        }catch(ClassNotFoundException | SQLException e){
-            System.out.println("Error al conectar");
-        }
+       
     }
-    public static Ceder getInstance() {
+    public static Ceder getInstance() throws SQLException, ClassNotFoundException{
         if (INSTANCE == null) createInstance();
         return INSTANCE;
     }
   
-    private static void createInstance() {
+    private static void createInstance() throws SQLException, ClassNotFoundException{
         if (INSTANCE == null) {
             // Sólo se accede a la zona sincronizada
             // cuando la instancia no está creada
@@ -251,6 +249,19 @@ public class Ceder {
             
             
         }
+    public void insertarConsulta(Consulta consulta){
+        String nssPaciente = consulta.getPaciente().getNss();
+        int folioReceta = consulta.getReceta().getFolio();
+        try{
+        PreparedStatement query = conexion.prepareStatement("INSERT INTO Consulta (nssPaciente,folioReceta)"
+                                                                    + "VALUES('"+nssPaciente+"',"+folioReceta+")");
+        
+        query.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+    }
     
     
 }

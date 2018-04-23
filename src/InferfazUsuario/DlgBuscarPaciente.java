@@ -5,6 +5,7 @@ import ModuloControl.ControlFaçade;
 import interfaces.IControl;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.naming.ldap.ControlFactory;
 import javax.swing.JFrame;
@@ -193,7 +194,7 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
     }
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         respuesta.append("Aceptar");
-
+try{
         if (jRadioButtonNss.isSelected()) {
             controlFacade.obtenerPaciente(nssjTextField.getText(), null);
 
@@ -201,6 +202,10 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
 
             controlFacade.obtenerPaciente(null, nombrejTextField.getText());
         }
+}catch(SQLException e){
+    respuesta = new StringBuffer();
+    respuesta.append("EX");
+}
         dispose();
 
 

@@ -13,6 +13,7 @@ import excepciones.PersistenciaException;
 import interfaces.IControl;
 import java.awt.Dialog;
 import java.awt.Frame;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.scene.Parent;
 import javax.swing.JFrame;
@@ -49,10 +50,12 @@ public class ControlFaçade implements IControl {
             }
         }
      @Override
-    public void obtenerPaciente(String nss, String nombre) {
-        
+    public void obtenerPaciente(String nss, String nombre) throws SQLException{
+        try{
         listaPacientes = new ArrayList<>(control.obtenerListaCeder(nss, nombre));
-        
+        }catch(ClassNotFoundException w){
+            throw new SQLException();
+        }
     
        
             
@@ -70,7 +73,7 @@ public class ControlFaçade implements IControl {
     }
 
     @Override
-    public ArrayList<Paciente> getListaPacientes() {
+    public ArrayList<Paciente> getListaPacientes() throws SQLException{
         return new ArrayList<>(listaPacientes);
     }
 

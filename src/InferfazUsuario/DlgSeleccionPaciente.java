@@ -4,8 +4,11 @@ import ModuloControl.ControlFaçade;
 import interfaces.IControl;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import objetosNegocio.Paciente;
 
 /**
@@ -26,9 +29,11 @@ public class DlgSeleccionPaciente extends javax.swing.JDialog {
         initComponents();
         // centra el cuadro de dialogo sobre la ventana de la aplicación 
         centraCuadroDialogo(parent);
-        
+        try{
         jComboBoxPacientes.setModel(new DefaultComboBoxModel(controlFacada.getListaPacientes().toArray()));
-
+        }catch(SQLException e){
+            
+        }
         estableceDatos();
 
     }
