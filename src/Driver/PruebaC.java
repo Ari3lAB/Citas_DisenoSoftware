@@ -5,13 +5,26 @@
  */
 package Driver;
 
+import java.sql.SQLException;
+import objetosNegocio.Paciente;
+
 /**
  *
  * @author duzk
  */
 public class PruebaC {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Ceder bd = new Ceder();
+        bd.obtenerPaciente();
+        
+        for (Paciente paciente : bd.obtenerPaciente()) {
+            System.out.println(paciente.getNombre());
+            System.out.println(paciente.getDireccion());
+            System.out.println(paciente.getNss());
+            System.out.println(paciente.getTelefono());
+            System.out.println("------------------------------");
+           
+        }
     }
 }
