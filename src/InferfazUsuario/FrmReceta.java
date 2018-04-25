@@ -1,6 +1,5 @@
 package InferfazUsuario;
 
-import ModuloControl.DlgSeleccionPaciente;
 import ModuloControl.Control;
 import ModuloControl.ControlFaçade;
 import interfaces.IControl;
