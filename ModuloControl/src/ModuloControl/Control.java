@@ -29,29 +29,29 @@ import persistencia.PersistenciaFacade;
  */
 public class Control {
 
-    IPersistencia persistencia;
-    Consulta consulta;
-    Receta receta;
-    ArrayList<Servicio> listaServicios;
-    ArrayList<Orden> listaOrdenes;
-    Ceder ceder;
-    Local local;
+    private IPersistencia persistencia;
+    private Consulta consulta;
+    private Receta receta;
+    private ArrayList<Servicio> listaServicios;
+    private ArrayList<Orden> listaOrdenes;
+    private Ceder ceder;
+    private Local local;
 
     public Control() {
-        listaOrdenes= new ArrayList<>();
+        listaOrdenes = new ArrayList<>();
         persistencia = PersistenciaFacade.getInstance();
         consulta = new Consulta();
         receta = new Receta(new GregorianCalendar());
-        
+
         local = Local.getInstance();
     }
 
-    public ArrayList<Paciente> obtenerListaCeder(String nss, String nombre) throws SQLException, ClassNotFoundException{
+    public ArrayList<Paciente> obtenerListaCeder(String nss, String nombre) throws SQLException, ClassNotFoundException {
         ceder = new Ceder();
         Paciente paciente = new Paciente(nss, nombre, null, null);
         ArrayList<Paciente> pacientes = new ArrayList<>(ceder.obtenerPaciente());
         ArrayList<Paciente> encontrados = new ArrayList<>();
-        
+
         if (nss != null) {
             if (pacientes.contains(paciente)) {
                 encontrados.add(pacientes.get(pacientes.lastIndexOf(paciente)));
@@ -68,12 +68,12 @@ public class Control {
     public void desplegarReceta(JFrame parent, StringBuffer respuesta, Paciente paciente, ArrayList<Servicio> listaServicios) {
         this.consulta.setPaciente(paciente);
         this.listaServicios = listaServicios;
-        
+
         DlgReceta dlgReceta = new DlgReceta(parent, "Generar receta", respuesta, consulta, receta, this.listaServicios);
         dlgReceta.setVisible(true);
-        
+
         if (respuesta.toString().equals("Aceptar")) {
-            
+
             for (Servicio servicio : listaServicios) {
                 Orden o = new Orden(servicio.getNombre().substring(0, 3), new GregorianCalendar(), servicio.getProovedor().getCodigo() + "", servicio.getProovedor().getNombre(), consulta.getPaciente().getNombre(), consulta.getPaciente().getNss(), servicio.getCodigoServicio(), receta.getTratamiento(), new GregorianCalendar());
                 listaOrdenes.add(o);
@@ -88,7 +88,7 @@ public class Control {
         ArrayList<Servicio> serviciosBuenos = new ArrayList<>();
         ArrayList<Servicio> serviciosRegulares = new ArrayList<>();
         ArrayList<Servicio> serviciosMalos = new ArrayList<>();
-        
+
         //Clasifica los servicios por calidad.
         for (Servicio serv : listaServicios) {
             Proveedor p = new Proveedor(serv.getProovedor());
@@ -104,11 +104,11 @@ public class Control {
         Collections.sort(serviciosBuenos, (a, b) -> a.getProovedor().getDiasContrato() > b.getProovedor().getDiasContrato() ? -1 : a.getProovedor().getDiasContrato() == b.getProovedor().getDiasContrato() ? 0 : 1);
         //Ordena servicios de buena calidad por número de ordenes.
         Collections.sort(serviciosBuenos, (a, b) -> a.getProovedor().getNumOrdenes() < b.getProovedor().getNumOrdenes() ? -1 : a.getProovedor().getNumOrdenes() == b.getProovedor().getNumOrdenes() ? 0 : 1);
-         //Ordena servicios de calidad regular por margen de contrato.
+        //Ordena servicios de calidad regular por margen de contrato.
         Collections.sort(serviciosRegulares, (a, b) -> a.getProovedor().getDiasContrato() < b.getProovedor().getDiasContrato() ? -1 : a.getProovedor().getDiasContrato() == b.getProovedor().getDiasContrato() ? 0 : 1);
         //Ordena servicios de calidad regular por número de ordenes.
         Collections.sort(serviciosRegulares, (a, b) -> a.getProovedor().getNumOrdenes() < b.getProovedor().getNumOrdenes() ? -1 : a.getProovedor().getNumOrdenes() == b.getProovedor().getNumOrdenes() ? 0 : 1);
-         //Ordena servicios de calidad mala por margen de contrato.
+        //Ordena servicios de calidad mala por margen de contrato.
         Collections.sort(serviciosMalos, (a, b) -> a.getProovedor().getDiasContrato() < b.getProovedor().getDiasContrato() ? -1 : a.getProovedor().getDiasContrato() == b.getProovedor().getDiasContrato() ? 0 : 1);
         //Ordena servicios de calidad regular por número de ordenes.
         Collections.sort(serviciosMalos, (a, b) -> a.getProovedor().getNumOrdenes() < b.getProovedor().getNumOrdenes() ? -1 : a.getProovedor().getNumOrdenes() == b.getProovedor().getNumOrdenes() ? 0 : 1);
@@ -122,7 +122,7 @@ public class Control {
 
     public void guardarReceta() {
         consulta.setReceta(receta);
-        
+
         consulta.setListaOrdenes(listaOrdenes);
         consulta.setListaServicios(listaServicios);
         ceder.insertarReceta(consulta.getReceta());
@@ -132,7 +132,7 @@ public class Control {
         ceder.insertarConsulta(consulta);
         local.insertarConsulta(consulta);
         persistencia.agregar(consulta);
-        
+
     }
 
     public void imprimirReceta(Frame frame, StringBuffer respuesta) {
@@ -147,7 +147,8 @@ public class Control {
         }
 
     }
-    public Consulta getConsulta(){
+
+    public Consulta getConsulta() {
         return this.consulta;
     }
 
