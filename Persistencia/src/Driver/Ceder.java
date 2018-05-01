@@ -263,5 +263,196 @@ public class Ceder implements ICeder{
         
     }
     
+    public ArrayList<Consulta> consultasPorPaciente(String nss){
+        String query = "SELECT *"
+                + "FROM Consultas"
+                + "WHERE nssPaciente = "+nss;
+        
+        ArrayList<Consulta> consultas = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            Paciente paciente = null;
+            Receta receta = null;
+            ArrayList<Orden> ordenes = new ArrayList<>();
+            ArrayList<Servicio> servicios = new ArrayList<>();
+            
+            
+            while(rs.next()){
+                
+                //PACIENTE
+                PreparedStatement inside = conexion.prepareStatement("SELECT *"
+                        + "FROM Pacientes"
+                        + "WHERE nss = "+nss);
+                
+                ResultSet insideR = inside.executeQuery();
+                paciente = new Paciente(nss, insideR.getString("nombre"), insideR.getString("telefono"), insideR.getString("direccion"));
+    
+                
+                //RECETA
+                inside = conexion.prepareStatement("SELECT DATE(fechaReceta) as fechaReceta,"
+                        + "diagnostico,"
+                        + "tratamiento,"
+                        + "folioReceta"
+                        + "FROM Receta"
+                        + "WHERE folioReceta = "+rs.getString("folioReceta"));
+                
+                insideR = inside.executeQuery();
+                
+                    String fecha = insideR.getString("fechaReceta");
+                    Date date = Date.valueOf(fecha);
+                    GregorianCalendar fechita = new GregorianCalendar(date.getYear(),
+                            date.getMonth(),
+                            date.getDate());
+                    
+                    receta = new Receta(insideR.getString("diagnostico"),
+                            fechita,
+                            insideR.getString("tratamiento"));
+                    receta.setFolioReceta(Integer.parseInt(rs.getString("folioReceta")));
+                
+                
+                
+                // ORDENES
+                
+                inside = conexion.prepareStatement("SELECT DATE(fechaSolicitud) as fechaSolicitud,"
+                        + "DATE(fechaServicio) as fechaServicio,"
+                        + "idProveedor,"
+                        + "numSolicitud,"
+                        + "idServicio,"
+                        + "indicaciones,"
+                        + "nssPaciente,"
+                        + "numeroOrden"
+                        + "FROM Orden"
+                        + "WHERE folioReceta = "+receta.getFolio());
+                insideR = inside.executeQuery();
+                
+                while(insideR.next()){
+                    //Conversion de fechas
+                    fecha = insideR.getString("fechaSolicitud");
+                    date = Date.valueOf(fecha);
+                    GregorianCalendar fechaSolicitud = new GregorianCalendar(date.getYear(),
+                            date.getMonth(),
+                            date.getDate());
+                    
+                    fecha = insideR.getString("fechaServicio");
+                    date = Date.valueOf(fecha);
+                    GregorianCalendar fechaServicio = new GregorianCalendar(date.getYear(),
+                            date.getMonth(),
+                            date.getDate());
+                    
+                    //Conseguir nombre del proveedor
+                    String nombreProveedorQuery = "SELECT nombreProveedor"
+                            + "FROM Proveedor"
+                            + "WHERE idProveedor ="+insideR.getString("idProveedor");
+                    
+                    PreparedStatement npq = conexion.prepareStatement(nombreProveedorQuery);
+                    ResultSet nombre = npq.executeQuery();
+                    String nombreProveedor = nombre.getString("nombreProveedor");
+                    
+                    //Conseguir nombre del servicio
+                    String nombreServicioQuery = "SELECT nombreServicio"
+                            + "FROM Servicio"
+                            + "WHERE idServicio = "+insideR.getString("idServicio");
+                    PreparedStatement nsq = conexion.prepareStatement(nombreServicioQuery);
+                    ResultSet nsrs = nsq.executeQuery();
+                    String nombreServicio = nsrs.getString("nombreServicio");
+                    
+                    
+                    //Creamos el objeto de Orden!
+                    
+                    Orden orden = new Orden(insideR.getString("numeroOrden"),
+                            fechaSolicitud,
+                            insideR.getString("idProveedor"),
+                            nombreProveedor, 
+                            paciente.getNombre(),
+                            paciente.getNss(),
+                            nombreServicio,
+                            insideR.getString("indicaciones"),
+                            fechaServicio);
+                    
+                    //Lo anadimos al ArrayList
+                    
+                    ordenes.add(orden);
+                    
+                    
+           
+                }
+                
+                //SERVICIOS
+                
+                for (Orden orden : ordenes) {
+                    
+                    String nombreServicio = orden.getServicio();
+                    
+                    inside = conexion.prepareStatement("SELECT *"
+                            + "FROM Servicio"
+                            + "WHERE nombreServicio ="+nombreServicio);
+                    
+                    insideR = inside.executeQuery();
+                    
+                    PreparedStatement proveedorsito = conexion.prepareStatement("SELECT DATE(finContrato) as finContrato,"
+                            + "DATE(inicioContrato) as inicioContrato,"
+                            + "calidad,"
+                            + "idProveedor,"
+                            + "nombreProveedor,"
+                            + "numeroOrdenes"
+                            + "FROM Proveedor"
+                            + "WHERE idProveedor = "+insideR.getString("idProveedor"));
+                    
+                    ResultSet pr = proveedorsito.executeQuery();
+                    
+                    String ic = pr.getString("inicioContrato");
+                    Date d = Date.valueOf(ic);
+                    GregorianCalendar inicioContrato = new GregorianCalendar(d.getYear(),
+                            d.getMonth(),
+                            d.getDate());
+                    
+                    String fc = pr.getString("finContrato");
+                    d = Date.valueOf(fecha);
+                    GregorianCalendar finContrato = new GregorianCalendar(d.getYear(),
+                            d.getMonth(),
+                            d.getDate());
+                    
+                    
+                    
+                    Proveedor proveedor = new Proveedor(pr.getString("idProveedor"),
+                                                        pr.getString("nombreProveedor"),
+                                                        pr.getString("calidad"),
+                                                        inicioContrato,
+                                                        finContrato,
+                                                        Integer.parseInt(pr.getString("numeroOrdenes")));
+                    
+                    
+                    
+                    
+                    Servicio servicio = new Servicio(insideR.getString("idProveedor"),
+                                                     proveedor,
+                                                     nombreServicio,
+                                                     insideR.getString("descripcion"));
+                    
+                    
+                    servicios.add(servicio);
+                    
+                    
+                }
+                
+               
+                consultas.add(new Consulta(Integer.parseInt(rs.getString("numConsulta")),
+                                                            paciente, receta, ordenes, servicios));
+               
+                
+            }
+            
+        }catch(Exception e){
+            
+        }
+        
+        return consultas;
+        
+        
+    }
+    
+    
     
 }
