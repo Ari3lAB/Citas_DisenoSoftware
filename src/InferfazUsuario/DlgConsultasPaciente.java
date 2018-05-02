@@ -25,6 +25,8 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
         initComponents();
         this.consultas = consultas;
         this.inicializarDatos();
+        initComponents();
+        
         
     }
 
@@ -165,8 +167,7 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
     
     public void inicializarDatos(){
         
-        String []consultasString;
-        consultasString = new String[consultas.size()];
+   
         
         textoNombre.setText(consultas.get(0).getPaciente().getNombre());
         textoDireccion.setText(consultas.get(0).getPaciente().getDireccion());
@@ -174,12 +175,9 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
         textoTelefono.setText(consultas.get(0).getPaciente().getTelefono());
         
         
-        for (int i = 0; i < consultasString.length; i++) {
-            consultasString[i] = "";
-            consultasString[i] = "Numero de Consulta:"+String.valueOf(consultas.get(i).getNumeroConsulta())+", Paciente: "+consultas.get(i).getPaciente().getNombre();
-        }
+       
         
-        this.consultasComboBox.setModel(new DefaultComboBoxModel(consultasString));
+        this.consultasComboBox.setModel(new DefaultComboBoxModel(consultas.toArray()));
         
     }
 

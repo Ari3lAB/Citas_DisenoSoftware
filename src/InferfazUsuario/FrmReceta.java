@@ -144,9 +144,9 @@ public class FrmReceta extends javax.swing.JFrame {
                     .addComponent(consultaBotonIcon)
                     .addComponent(verConsultasBotonIcon))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -261,6 +261,7 @@ try{
                     DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente", respuesta);
                     dlgSeleccion.setVisible(true);
                     if (respuesta.toString().equals("Aceptar")) {
+                        System.out.println("TODO BIEN");
                         respuesta = new StringBuffer("");
                         
                         DlgConsultasPaciente dlgPaciente = new DlgConsultasPaciente(this,true, controlFacade.getListaConsultas(dlgSeleccion.getPaciente()));
