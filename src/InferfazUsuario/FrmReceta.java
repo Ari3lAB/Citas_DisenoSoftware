@@ -263,7 +263,7 @@ try{
                     if (respuesta.toString().equals("Aceptar")) {
                         System.out.println("TODO BIEN");
                         respuesta = new StringBuffer("");
-                        
+                        System.out.println(controlFacade.getListaConsultas(dlgSeleccion.getPaciente()));
                         DlgConsultasPaciente dlgPaciente = new DlgConsultasPaciente(this,true, controlFacade.getListaConsultas(dlgSeleccion.getPaciente()));
                         dlgPaciente.setVisible(true);
                                                 
