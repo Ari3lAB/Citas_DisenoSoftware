@@ -263,7 +263,11 @@ public class Ceder implements ICeder{
         
     }
     
-    public ArrayList<Consulta> consultasPorPaciente(String nss){
+    public ArrayList<Consulta> consultasPorPaciente(Paciente p){
+        
+        String nss = p.getNss();
+        
+        
         String query = "SELECT *"
                 + "FROM Consultas"
                 + "WHERE nssPaciente = "+nss;
@@ -273,7 +277,7 @@ public class Ceder implements ICeder{
         try{
             PreparedStatement ps = conexion.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            Paciente paciente = null;
+            
             Receta receta = null;
             ArrayList<Orden> ordenes = new ArrayList<>();
             ArrayList<Servicio> servicios = new ArrayList<>();
@@ -282,14 +286,10 @@ public class Ceder implements ICeder{
             while(rs.next()){
                 
                 //PACIENTE
-                PreparedStatement inside = conexion.prepareStatement("SELECT *"
-                        + "FROM Pacientes"
-                        + "WHERE nss = "+nss);
+                PreparedStatement inside;
                 
-                ResultSet insideR = inside.executeQuery();
-                paciente = new Paciente(nss, insideR.getString("nombre"), insideR.getString("telefono"), insideR.getString("direccion"));
-    
-                
+                ResultSet insideR;
+                    
                 //RECETA
                 inside = conexion.prepareStatement("SELECT DATE(fechaReceta) as fechaReceta,"
                         + "diagnostico,"
@@ -365,8 +365,8 @@ public class Ceder implements ICeder{
                             fechaSolicitud,
                             insideR.getString("idProveedor"),
                             nombreProveedor, 
-                            paciente.getNombre(),
-                            paciente.getNss(),
+                            p.getNombre(),
+                            p.getNss(),
                             nombreServicio,
                             insideR.getString("indicaciones"),
                             fechaServicio);
@@ -439,7 +439,7 @@ public class Ceder implements ICeder{
                 
                
                 consultas.add(new Consulta(Integer.parseInt(rs.getString("numConsulta")),
-                                                            paciente, receta, ordenes, servicios));
+                                                            p, receta, ordenes, servicios));
                
                 
             }

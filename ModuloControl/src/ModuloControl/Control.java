@@ -83,6 +83,9 @@ public class Control {
 
     }
 
+    
+    
+    
     public ArrayList<Servicio> obtenerServiciosCeder() {
         ArrayList<Servicio> listaServicios = new ArrayList<>(ceder.obtenerServicios());
         ArrayList<Servicio> serviciosBuenos = new ArrayList<>();
@@ -147,7 +150,11 @@ public class Control {
         }
 
     }
-
+    
+    public ArrayList getListaConsultas(Paciente paciente){
+        return ceder.consultasPorPaciente(paciente);
+    }
+    
     public Consulta getConsulta() {
         return this.consulta;
     }

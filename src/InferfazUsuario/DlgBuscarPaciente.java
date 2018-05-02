@@ -194,18 +194,18 @@ public class DlgBuscarPaciente extends javax.swing.JDialog {
     }
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         respuesta.append("Aceptar");
-try{
-        if (jRadioButtonNss.isSelected()) {
-            controlFacade.obtenerPaciente(nssjTextField.getText(), null);
+        try{
+            if (jRadioButtonNss.isSelected()) {
+                controlFacade.obtenerPaciente(nssjTextField.getText(), null);
 
-        } else {
+            } else {
 
-            controlFacade.obtenerPaciente(null, nombrejTextField.getText());
+                controlFacade.obtenerPaciente(null, nombrejTextField.getText());
+            }
+        }catch(SQLException e){
+            respuesta = new StringBuffer();
+            respuesta.append("EX");
         }
-}catch(SQLException e){
-    respuesta = new StringBuffer();
-    respuesta.append("EX");
-}
         dispose();
 
 

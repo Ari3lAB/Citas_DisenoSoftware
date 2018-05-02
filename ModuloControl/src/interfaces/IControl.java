@@ -19,5 +19,7 @@ public interface IControl {
     public ArrayList<Paciente> getListaPacientes() throws SQLException;
     public void muestraReceta(JFrame parent, StringBuffer receta, Paciente paciente);
     public void imprime(Frame frame, StringBuffer respuesta);
-   public void setControl(Control control);
+    public void setControl(Control control);
+    public ArrayList<Consulta> getListaConsultas(Paciente paciente) throws SQLException;
+    
 }

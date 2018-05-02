@@ -60,7 +60,10 @@ public class FrmReceta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jbuttonNuevaConsulta = new javax.swing.JButton();
+        consultaBotonIcon = new javax.swing.JLabel();
+        verConsultasBotonIcon = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         consultaMenuItem = new javax.swing.JMenuItem();
@@ -68,12 +71,23 @@ public class FrmReceta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jbuttonNuevaConsulta.setText("Nueva consulta");
-        jbuttonNuevaConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbuttonNuevaConsultaActionPerformed(evt);
+        consultaBotonIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/consulta.png"))); // NOI18N
+        consultaBotonIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                consultaBotonIconMouseClicked(evt);
             }
         });
+
+        verConsultasBotonIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/registroConsultas.png"))); // NOI18N
+        verConsultasBotonIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                verConsultasBotonIconMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setText("Realizar una Consulta");
+
+        jLabel2.setText("Ver registro de Consultas");
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Consulta");
@@ -110,16 +124,30 @@ public class FrmReceta extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(jbuttonNuevaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addGap(81, 81, 81)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(consultaBotonIcon)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(verConsultasBotonIcon)
+                    .addComponent(jLabel2))
+                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(jbuttonNuevaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(consultaBotonIcon)
+                    .addComponent(verConsultasBotonIcon))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -171,8 +199,7 @@ try{
 
     }//GEN-LAST:event_consultaMenuItemMouseClicked
 
-    private void jbuttonNuevaConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonNuevaConsultaActionPerformed
-
+    private void consultaBotonIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultaBotonIconMouseClicked
         while (true) {
             StringBuffer respuesta = new StringBuffer("");
             try{
@@ -188,6 +215,8 @@ try{
                     dlgSeleccion.setVisible(true);
                     if (respuesta.toString().equals("Aceptar")) {
                         respuesta = new StringBuffer("");
+                        
+                        
                         controlFacade.muestraReceta(this, respuesta, dlgSeleccion.getPaciente());
                         if (respuesta.toString().equals("Aceptar")) {
                             respuesta = new StringBuffer("");
@@ -206,18 +235,63 @@ try{
             }
             }catch(SQLException e){
                
-    JOptionPane.showMessageDialog(this, "ERROR: No se pudo conectar a la base de datos externa.");
+                JOptionPane.showMessageDialog(this, "ERROR: No se pudo conectar a la base de datos externa.");
     
-}catch(NullPointerException e){
-    JOptionPane.showMessageDialog(this, "ERROR: No se pudo conectar a la base de datos externa.");
-}
+            }catch(NullPointerException e){
+                JOptionPane.showMessageDialog(this, "ERROR: No se pudo conectar a la base de datos externa.");
+            }
         }
         controlFacade.setControl(new Control());
 
-        /*
-        dialog.setVisible(true);    }                                                
-         */
-    }//GEN-LAST:event_jbuttonNuevaConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_consultaBotonIconMouseClicked
+
+    private void verConsultasBotonIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verConsultasBotonIconMouseClicked
+      while (true) {
+            StringBuffer respuesta = new StringBuffer("");
+            try{
+            DlgBuscarPaciente dialog = new DlgBuscarPaciente(this, "Buscar Paciente", respuesta);
+            dialog.setVisible(true);
+            if(respuesta.toString().equals("EX"))
+                throw  new SQLException();
+            if (respuesta.toString().equals("Aceptar")) {
+                
+                if (!controlFacade.getListaPacientes().isEmpty()) {
+                    respuesta = new StringBuffer("");
+                    DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente", respuesta);
+                    dlgSeleccion.setVisible(true);
+                    if (respuesta.toString().equals("Aceptar")) {
+                        respuesta = new StringBuffer("");
+                        
+                        DlgConsultasPaciente dlgPaciente = new DlgConsultasPaciente(this,false, controlFacade.getListaConsultas(dlgSeleccion.getPaciente()));
+                        dlgPaciente.setVisible(true);
+                                                
+                        
+                        
+                        if (respuesta.toString().equals("Aceptar")) {
+                            respuesta = new StringBuffer("");
+                            break;
+                        }
+                    } 
+                } else {
+                     JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
+                    
+                }
+                
+
+            } else {
+                break;
+            }
+            }catch(SQLException e){
+               
+                JOptionPane.showMessageDialog(this, "ERROR: No se pudo conectar a la base de datos externa.");
+    
+            }catch(NullPointerException e){
+                JOptionPane.showMessageDialog(this, "ERROR: No se pudo conectar a la base de datos externa.");
+            }
+        }
+        controlFacade.setControl(new Control());  // TODO add your handling code here:
+    }//GEN-LAST:event_verConsultasBotonIconMouseClicked
 
     /**
      * @param args the command line arguments
@@ -249,11 +323,14 @@ try{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel consultaBotonIcon;
     private javax.swing.JMenuItem consultaMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JButton jbuttonNuevaConsulta;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JLabel verConsultasBotonIcon;
     // End of variables declaration//GEN-END:variables
 
 }

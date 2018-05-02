@@ -96,4 +96,9 @@ public class ControlFaçade implements IControl {
     }
    
     
+
+    @Override
+    public ArrayList<Consulta> getListaConsultas(Paciente paciente) throws SQLException {
+           return control.getListaConsultas(paciente);
+    }
 }
