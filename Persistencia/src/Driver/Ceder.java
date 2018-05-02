@@ -445,7 +445,7 @@ public class Ceder implements ICeder{
             }
             
         }catch(Exception e){
-            
+            System.out.println("Algo salio mal");
         }
         
         return consultas;
