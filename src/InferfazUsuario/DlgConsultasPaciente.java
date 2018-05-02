@@ -161,9 +161,16 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
         });
     }
     
-    public void inicializarListaConsultas(ArrayList<Consulta> consultas){
+    public void inicializarDatos(){
+        
         String []consultasString;
         consultasString = new String[consultas.size()];
+        
+        textoNombre.setText(consultas.get(0).getPaciente().getNombre());
+        textoDireccion.setText(consultas.get(0).getPaciente().getDireccion());
+        textoNSS.setText(consultas.get(0).getPaciente().getNss());
+        textoTelefono.setText(consultas.get(0).getPaciente().getTelefono());
+        
         
         for (int i = 0; i < consultasString.length; i++) {
             consultasString[i] = "";
