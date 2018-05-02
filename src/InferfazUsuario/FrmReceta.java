@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import objetosNegocio.Consulta;
 import objetosNegocio.Paciente;
 
 /**
@@ -261,19 +262,26 @@ try{
                     DlgSeleccionPaciente dlgSeleccion = new DlgSeleccionPaciente(this, "Seleccione al paciente", respuesta);
                     dlgSeleccion.setVisible(true);
                     if (respuesta.toString().equals("Aceptar")) {
-                        System.out.println("TODO BIEN");
+                        
                         respuesta = new StringBuffer("");
-                        System.out.println(controlFacade.getListaConsultas(dlgSeleccion.getPaciente()));
-                        DlgConsultasPaciente dlgPaciente = new DlgConsultasPaciente(this,true, controlFacade.getListaConsultas(dlgSeleccion.getPaciente()));
+                       ArrayList<Consulta> consultasPaciente = new ArrayList<>(controlFacade.getListaConsultas(dlgSeleccion.getPaciente()));
+                       if(consultasPaciente.size()>0){
+                           
+                        DlgConsultasPaciente dlgPaciente = new DlgConsultasPaciente(this,true, consultasPaciente);
                         dlgPaciente.setVisible(true);
-                                                
+                           respuesta = new StringBuffer("");                 
                         
                         
                         if (respuesta.toString().equals("Aceptar")) {
-                            respuesta = new StringBuffer("");
+                          
                             break;
                         }
-                    } 
+                       }
+                       else{
+                         JOptionPane.showMessageDialog(this, "No se encontraron consultas para el paciente.");
+                    }
+                    }
+                    
                 } else {
                      JOptionPane.showMessageDialog(this, "No se enontró ninguna coincidencia en la base de datos.");
                     

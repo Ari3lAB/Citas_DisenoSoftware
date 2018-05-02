@@ -273,8 +273,9 @@ public class Ceder implements ICeder{
                 + " WHERE nssPaciente = '"+nss+"'";
         
         ArrayList<Consulta> consultas = new ArrayList<>();
-        
+         
         try{
+           
             PreparedStatement ps = conexion.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             
@@ -292,11 +293,11 @@ public class Ceder implements ICeder{
                     
                 //RECETA
                 inside = conexion.prepareStatement("SELECT DATE(fechaReceta) as fechaReceta,"
-                        + "diagnostico,"
-                        + "tratamiento,"
-                        + "folioReceta"
-                        + "FROM Receta"
-                        + "WHERE folioReceta = "+rs.getString("folioReceta"));
+                        + " diagnostico,"
+                        + " tratamiento,"
+                        + " folioReceta"
+                        + " FROM Receta"
+                        + " WHERE folioReceta = "+rs.getString("folioReceta"));
                 
                 insideR = inside.executeQuery();
                 
@@ -310,25 +311,27 @@ public class Ceder implements ICeder{
                     receta = new Receta(insideR.getString("diagnostico"),
                             fechita,
                             insideR.getString("tratamiento"));
+                    
                     receta.setFolioReceta(Integer.parseInt(rs.getString("folioReceta")));
+                        System.out.println(receta);
                     }
                 
                   
                 
                 
-                
+                PreparedStatement inorden;
                 // ORDENES
-                inside = conexion.prepareStatement("SELECT DATE(fechaSolicitud) as fechaSolicitud,"
-                        + "DATE(fechaServicio) as fechaServicio,"
-                        + "idProveedor,"
-                        + "numSolicitud,"
-                        + "idServicio,"
-                        + "indicaciones,"
-                        + "nssPaciente,"
-                        + "numeroOrden"
-                        + "FROM Orden"
-                        + "WHERE folioReceta = "+receta.getFolio());
-                insideR = inside.executeQuery();
+                inorden = conexion.prepareStatement("SELECT DATE(fechaSolicitud) as fechaSolicitud,"
+                        + " DATE(fechaServicio) as fechaServicio,"
+                        + " idProveedor,"
+                        + " numSolicitud,"
+                        + " idServicio,"
+                        + " indicaciones,"
+                        + " nssPaciente,"
+                        + " numeroOrden"
+                        + " FROM Orden"
+                        + " WHERE folioReceta = "+Integer.toString(receta.getFolio())+"");
+                insideR = inorden.executeQuery();
                 
                 while(insideR.next()){
                     //Conversion de fechas
@@ -346,21 +349,24 @@ public class Ceder implements ICeder{
                     
                     //Conseguir nombre del proveedor
                     String nombreProveedorQuery = "SELECT nombreProveedor"
-                            + "FROM Proveedor"
-                            + "WHERE idProveedor ="+insideR.getString("idProveedor");
+                            + " FROM Proveedor"
+                            + " WHERE idProveedor = "+insideR.getString("idProveedor");
                     
                     PreparedStatement npq = conexion.prepareStatement(nombreProveedorQuery);
                     ResultSet nombre = npq.executeQuery();
+                    nombre.next();
                     String nombreProveedor = nombre.getString("nombreProveedor");
+                    System.out.println(nombreProveedor);
                     
                     //Conseguir nombre del servicio
                     String nombreServicioQuery = "SELECT nombreServicio"
-                            + "FROM Servicio"
-                            + "WHERE idServicio = "+insideR.getString("idServicio");
+                            + " FROM Servicio"
+                            + " WHERE idServicio = "+insideR.getString("idServicio");
                     PreparedStatement nsq = conexion.prepareStatement(nombreServicioQuery);
                     ResultSet nsrs = nsq.executeQuery();
+                    nsrs.next();
                     String nombreServicio = nsrs.getString("nombreServicio");
-                    
+                    System.out.println(nombreServicio);
                     
                     //Creamos el objeto de Orden!
                     
@@ -375,7 +381,7 @@ public class Ceder implements ICeder{
                             fechaServicio);
                     
                     //Lo anadimos al ArrayList
-                    
+                    System.out.println(orden);
                     ordenes.add(orden);
                     
                     
@@ -386,25 +392,26 @@ public class Ceder implements ICeder{
                 
                 for (Orden orden : ordenes) {
                     
+                    String nombreProveedor = orden.getNombreProovedor();
                     String nombreServicio = orden.getServicio();
                     
                     inside = conexion.prepareStatement("SELECT *"
-                            + "FROM Servicio"
-                            + "WHERE nombreServicio ="+nombreServicio);
+                            + " FROM Servicio S"
+                            + " INNER JOIN Proveedor P ON P.nombreProveedor = '"+nombreProveedor+"' AND S.nombreServicio = '"+nombreServicio+"'");
                     
                     insideR = inside.executeQuery();
-                    
+                    insideR.next();
                     PreparedStatement proveedorsito = conexion.prepareStatement("SELECT DATE(finContrato) as finContrato,"
-                            + "DATE(inicioContrato) as inicioContrato,"
-                            + "calidad,"
-                            + "idProveedor,"
-                            + "nombreProveedor,"
-                            + "numeroOrdenes"
-                            + "FROM Proveedor"
-                            + "WHERE idProveedor = "+insideR.getString("idProveedor"));
+                            + " DATE(inicioContrato) as inicioContrato,"
+                            + " calidad,"
+                            + " idProveedor,"
+                            + " nombreProveedor,"
+                            + " numeroOrdenes"
+                            + " FROM Proveedor"
+                            + " WHERE idProveedor = "+insideR.getString("idProveedor"));
                     
                     ResultSet pr = proveedorsito.executeQuery();
-                    
+                    pr.next();
                     String ic = pr.getString("inicioContrato");
                     Date d = Date.valueOf(ic);
                     GregorianCalendar inicioContrato = new GregorianCalendar(d.getYear(),
@@ -448,7 +455,7 @@ public class Ceder implements ICeder{
             }
             
         }catch(Exception e){
-            System.out.println("Algo salio mal");
+            System.out.println(e.getLocalizedMessage());
         }
         
         return consultas;

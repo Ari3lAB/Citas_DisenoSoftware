@@ -1,88 +1,110 @@
-package ObjetosNegocio;
+package objetosNegocio;
 
-import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
-import java.util.Date;
 
-/**
- *
- * @author ArielAB
- */
-public class Receta {
 
-    protected String Diagnostico;
-    protected String tratamiento;
-    protected Date fecha;
+
+
+
+
+
+
+
+
+public class Receta
+{
+  private String Diagnostico;
+  private String tratamiento;
+  private GregorianCalendar fecha;
+  private int folio;
+  private static int contadorRecetas = 0;
+  
+  public Receta(GregorianCalendar fecha) {
+    contadorRecetas += 1;
+    folio = contadorRecetas;
+    this.fecha = fecha;
+  }
+  
+  public Receta(String diagnostico, GregorianCalendar fecha, String tratamiento)
+  {
+    contadorRecetas += 1;
+    folio = contadorRecetas;
+    this.fecha = fecha;
+    this.Diagnostico= diagnostico;
     
-    protected  int folio;
-public Receta(int folio, Date fecha) {
-        this.folio=folio;
-        this.fecha = fecha;
-        
-        
-    }
-    public Receta(int folio,String diagnostico, Date fecha,String tratamiento) {
-        this.folio=folio;
-        this.Diagnostico = diagnostico;
-        this.fecha = fecha;
-        
-        this.tratamiento=tratamiento;
-        
-        
-    }
-public Receta(Receta receta){
-    this.folio=receta.getFolio();
-        this.Diagnostico = receta.getDianostico();
-        this.fecha = receta.getFecha();
-        
-        this.tratamiento=receta.getTratamiento();
-}
+    this.tratamiento = tratamiento;
+  }
+  
+  public Receta(Receta receta)
+  {
+    folio = receta.getFolio();
+    Diagnostico = receta.getDianostico();
+    fecha = receta.getFecha();
     
+    tratamiento = receta.getTratamiento();
+  }
+  
+  public void setFolioReceta(int folio) {
+    this.folio = folio;
+  }
+  
+  public int getFolio() {
+    return folio;
+  }
+  
+  public void setDiagnostico(String diagnostico) {
+    Diagnostico = diagnostico;
+  }
+  
+  public String getDianostico() {
+    return Diagnostico;
+  }
+  
+  public void setFecha(GregorianCalendar fecha) {
+    this.fecha = fecha;
+  }
+  
+  public GregorianCalendar getFecha() {
+    return fecha;
+  }
+  
+  public void setTratamiento(String tratamiento) {
+    this.tratamiento = tratamiento;
+  }
+  
+  public String getTratamiento() {
+    return tratamiento;
+  }
+  
+  public int hashCode()
+  {
+    int hash = 3;
+    hash = 71 * hash + folio;
+    return hash;
+  }
+  
+  public boolean equals(Object obj)
+  {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    Receta other = (Receta)obj;
+    if (folio != folio) {
+      return false;
+    }
+    return true;
+  }
+  
 
-    public void setFolioReceta(int folio) {
-        this.folio = folio;
-    }
-
-    public int getFolio() {
-        return folio;
-    }
-public void setDiagnostico(String diagnostico) {
-        this.Diagnostico = diagnostico;
-    }
-    public String getDianostico() {
-        return Diagnostico;
-    }
-
-   public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-    public Date getFecha() {
-        return fecha;
-    }
-   
-    public void setTratamiento(String tratamiento) {
-        this.tratamiento = tratamiento;
-    }
-    public String getTratamiento() {
-        return tratamiento;
-    }
-    
-    public boolean agregarServicio(ArrayList<Servicio> listaServicios){
-        return listaServicios.addAll(listaServicios);
-    }
-    
-    public boolean equals(Receta receta){
-       return folio == receta.getFolio();
-    }
-
-    
-
-    
-
-    @Override
-    public String toString() {
-
-        return folio + ", " + fecha + ", " + Diagnostico+", " + tratamiento;
-    }
-
+  public String toString()
+  {
+    return folio + ", " + fecha + ", " + Diagnostico + ", " + tratamiento;
+  }
 }
