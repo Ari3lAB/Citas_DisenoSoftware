@@ -6,8 +6,11 @@
 package InferfazUsuario;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import objetosNegocio.Consulta;
+import objetosNegocio.Orden;
+import objetosNegocio.Servicio;
 
 /**
  *
@@ -51,6 +54,9 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
         textoTelefono = new javax.swing.JTextField();
         consultasComboBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textoConsulta = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -68,8 +74,24 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
         jLabel4.setText("Telefóno:");
 
         consultasComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        consultasComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                consultasComboBoxItemStateChanged(evt);
+            }
+        });
+        consultasComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultasComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Consultas:");
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/figura-de-usuario.png"))); // NOI18N
+
+        textoConsulta.setColumns(20);
+        textoConsulta.setRows(5);
+        jScrollPane1.setViewportView(textoConsulta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,33 +104,39 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 29, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addGap(26, 26, 26)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textoNSS, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(consultasComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(textoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textoNSS, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(consultasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(59, 59, 59))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(331, 331, 331))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel6)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -120,11 +148,13 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
                     .addComponent(textoDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(textoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(consultasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -134,10 +164,68 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
       
     }//GEN-LAST:event_formWindowClosed
 
-    /**
-     * @param args the command line arguments
-     */
-   
+    private void consultasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultasComboBoxActionPerformed
+        inicializaTextoConsulta();
+
+    }//GEN-LAST:event_consultasComboBoxActionPerformed
+
+    private void consultasComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultasComboBoxItemStateChanged
+        inicializaTextoConsulta();
+        
+    }//GEN-LAST:event_consultasComboBoxItemStateChanged
+
+
+    public void inicializaTextoConsulta(){
+        Consulta consulta = (Consulta) consultasComboBox.getSelectedItem();
+        int numeroConsulta = consulta.getNumeroConsulta();
+
+        String diagnostico = consulta.getReceta().getDianostico();
+        String tratamiento = consulta.getReceta().getTratamiento();
+        
+        String fechaReceta = String.valueOf(consulta.getReceta().getFecha().get(Calendar.DAY_OF_MONTH))+"/"
+                +String.valueOf(consulta.getReceta().getFecha().get(Calendar.MONTH+1))+"/"
+                +String.valueOf(consulta.getReceta().getFecha().get(Calendar.YEAR));
+        
+        int folioReceta = consulta.getReceta().getFolio();
+        
+        String ordenesConServicio = "";
+        
+        for (int i = 0; i < consulta.getListaOrdenes().size(); i++) {
+            String numOrden = consulta.getListaOrdenes().get(i).getNumeroOrden();
+            String nombreServicio = consulta.getListaOrdenes().get(i).getServicio();
+            String nombreProveedor = consulta.getListaOrdenes().get(i).getNombreProovedor();
+            String codigoProveedor = consulta.getListaOrdenes().get(i).getCodigoProovedor();
+            String descripcionServicio = consulta.getListaServicios().get(i).getDescripcion();
+            
+            String separador = "--------------------------------------------------------------- \n";
+            
+            String ordenservicio = "Numero Orden: "+numOrden+"\n"
+                    + "Nombre Servicio: "+nombreServicio+"\n"
+                    + "Proveedor: "+nombreProveedor+" ID: "+codigoProveedor+"\n"
+                    + "Descripción: \n"
+                    + descripcionServicio+"\n"
+                    + separador+"\n";
+            ordenesConServicio.concat(ordenservicio);
+        }
+ 
+        String receta = "Consulta Num: "+numeroConsulta+"\n"
+                + "Folio: "+String.valueOf(folioReceta)+"\n"
+                + "Fecha de Receta: "+fechaReceta+"\n"
+                + "\n"
+                + "Diagnóstico: "+diagnostico+"\n"
+                + "\n"
+                + "Tratamiento: "+tratamiento+"\n"
+                + "\n";
+            
+            
+        String consultaCompleta = receta.concat(ordenesConServicio);
+        
+        textoConsulta.setText(consultaCompleta);
+        
+       
+    }
+    
+    
     
     public void inicializarDatos(){
         
@@ -162,6 +250,9 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea textoConsulta;
     private javax.swing.JTextField textoDireccion;
     private javax.swing.JTextField textoNSS;
     private javax.swing.JTextField textoNombre;
