@@ -3,15 +3,6 @@ package objetosNegocio;
 import java.util.GregorianCalendar;
 
 
-
-
-
-
-
-
-
-
-
 public class Receta
 {
   private String Diagnostico;

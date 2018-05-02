@@ -190,6 +190,15 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
         
         String ordenesConServicio = "";
         
+        String receta = "Consulta Num: "+numeroConsulta+"\n"
+                + "Folio: "+String.valueOf(folioReceta)+"\n"
+                + "Fecha de Receta: "+fechaReceta+"\n"
+                + "\n"
+                + "Diagnóstico: "+diagnostico+"\n"
+                + "\n"
+                + "Tratamiento: "+tratamiento+"\n"
+                + "\n";
+        
         for (int i = 0; i < consulta.getListaOrdenes().size(); i++) {
             String numOrden = consulta.getListaOrdenes().get(i).getNumeroOrden();
             String nombreServicio = consulta.getListaOrdenes().get(i).getServicio();
@@ -205,17 +214,11 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
                     + "Descripción: \n"
                     + descripcionServicio+"\n"
                     + separador+"\n";
-            ordenesConServicio.concat(ordenservicio);
+            ordenesConServicio = ordenesConServicio + (ordenservicio);
+            System.out.println(ordenservicio);
         }
  
-        String receta = "Consulta Num: "+numeroConsulta+"\n"
-                + "Folio: "+String.valueOf(folioReceta)+"\n"
-                + "Fecha de Receta: "+fechaReceta+"\n"
-                + "\n"
-                + "Diagnóstico: "+diagnostico+"\n"
-                + "\n"
-                + "Tratamiento: "+tratamiento+"\n"
-                + "\n";
+        
             
             
         String consultaCompleta = receta.concat(ordenesConServicio);

@@ -103,6 +103,11 @@ public class DlgSeleccionPaciente extends javax.swing.JDialog {
                 jComboBoxPacientesItemStateChanged(evt);
             }
         });
+        jComboBoxPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxPacientesActionPerformed(evt);
+            }
+        });
 
         jTextFieldDireccion.setEditable(false);
         jTextFieldDireccion.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +201,10 @@ public class DlgSeleccionPaciente extends javax.swing.JDialog {
     private void jComboBoxPacientesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxPacientesItemStateChanged
         estableceDatos();
     }//GEN-LAST:event_jComboBoxPacientesItemStateChanged
+
+    private void jComboBoxPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPacientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxPacientesActionPerformed
     public void estableceDatos() {
 
         paciente = (Paciente)jComboBoxPacientes.getSelectedItem();
