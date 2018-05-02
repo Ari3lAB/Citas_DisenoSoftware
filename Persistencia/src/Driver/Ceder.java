@@ -300,9 +300,10 @@ public class Ceder implements ICeder{
                 
                 insideR = inside.executeQuery();
                 
-                    String fecha = insideR.getString("fechaReceta");
-                    Date date = Date.valueOf(fecha);
-                    GregorianCalendar fechita = new GregorianCalendar(date.getYear(),
+                    while(insideR.next()){
+                        String fecha = insideR.getString("fechaReceta");
+                        Date date = Date.valueOf(fecha);
+                        GregorianCalendar fechita = new GregorianCalendar(date.getYear(),
                             date.getMonth(),
                             date.getDate());
                     
@@ -310,11 +311,13 @@ public class Ceder implements ICeder{
                             fechita,
                             insideR.getString("tratamiento"));
                     receta.setFolioReceta(Integer.parseInt(rs.getString("folioReceta")));
+                    }
+                
+                  
                 
                 
                 
                 // ORDENES
-                
                 inside = conexion.prepareStatement("SELECT DATE(fechaSolicitud) as fechaSolicitud,"
                         + "DATE(fechaServicio) as fechaServicio,"
                         + "idProveedor,"
@@ -329,8 +332,8 @@ public class Ceder implements ICeder{
                 
                 while(insideR.next()){
                     //Conversion de fechas
-                    fecha = insideR.getString("fechaSolicitud");
-                    date = Date.valueOf(fecha);
+                    String fecha = insideR.getString("fechaSolicitud");
+                    Date date = Date.valueOf(fecha);
                     GregorianCalendar fechaSolicitud = new GregorianCalendar(date.getYear(),
                             date.getMonth(),
                             date.getDate());
@@ -409,7 +412,7 @@ public class Ceder implements ICeder{
                             d.getDate());
                     
                     String fc = pr.getString("finContrato");
-                    d = Date.valueOf(fecha);
+                    d = Date.valueOf(fc);
                     GregorianCalendar finContrato = new GregorianCalendar(d.getYear(),
                             d.getMonth(),
                             d.getDate());

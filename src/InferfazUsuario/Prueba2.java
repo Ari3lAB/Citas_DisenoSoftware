@@ -26,13 +26,13 @@ public class Prueba2 {
         Connection conexion = ceder.getInstance().getConnection();
         
         
-        String consulta = "SELECT * FROM Pacientes";
+        String consulta = "SELECT * FROM Consulta";
         PreparedStatement ps = conexion.prepareStatement(consulta);
         
         ResultSet rs = ps.executeQuery();
         
         while(rs.next()){
-            System.out.println(rs.getString("nombre"));
+            System.out.println(rs.getString("numConsulta"));
 
         }
         
