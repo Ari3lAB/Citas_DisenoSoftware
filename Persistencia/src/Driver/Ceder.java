@@ -272,14 +272,14 @@ public class Ceder implements ICeder{
                 + " FROM Consulta"
                 + " WHERE nssPaciente = '"+nss+"'";
         
-        ArrayList<Consulta> consultas = new ArrayList<>();
+        ArrayList<Consulta> consultass = new ArrayList<>();
          
         try{
            
             PreparedStatement ps = conexion.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             
-            Receta receta = null;
+            Receta receta;
             ArrayList<Orden> ordenes = new ArrayList<>();
             ArrayList<Servicio> servicios = new ArrayList<>();
             
@@ -301,20 +301,20 @@ public class Ceder implements ICeder{
                 
                 insideR = inside.executeQuery();
                 
-                    while(insideR.next()){
-                        String fecha = insideR.getString("fechaReceta");
-                        Date date = Date.valueOf(fecha);
-                        GregorianCalendar fechita = new GregorianCalendar(date.getYear(),
-                            date.getMonth(),
-                            date.getDate());
+                    insideR.next();
+                        String fechaReceta = insideR.getString("fechaReceta");
+                        Date dateReceta = Date.valueOf(fechaReceta);
+                        GregorianCalendar fechita = new GregorianCalendar(dateReceta.getYear(),
+                            dateReceta.getMonth(),
+                            dateReceta.getDate());
                     
                     receta = new Receta(insideR.getString("diagnostico"),
                             fechita,
                             insideR.getString("tratamiento"));
                     
                     receta.setFolioReceta(Integer.parseInt(rs.getString("folioReceta")));
-                        System.out.println(receta);
-                    }
+                        
+                    
                 
                   
                 
@@ -356,7 +356,7 @@ public class Ceder implements ICeder{
                     ResultSet nombre = npq.executeQuery();
                     nombre.next();
                     String nombreProveedor = nombre.getString("nombreProveedor");
-                    System.out.println(nombreProveedor);
+                    
                     
                     //Conseguir nombre del servicio
                     String nombreServicioQuery = "SELECT nombreServicio"
@@ -366,7 +366,7 @@ public class Ceder implements ICeder{
                     ResultSet nsrs = nsq.executeQuery();
                     nsrs.next();
                     String nombreServicio = nsrs.getString("nombreServicio");
-                    System.out.println(nombreServicio);
+                   
                     
                     //Creamos el objeto de Orden!
                     
@@ -381,13 +381,13 @@ public class Ceder implements ICeder{
                             fechaServicio);
                     
                     //Lo anadimos al ArrayList
-                    System.out.println(orden);
+                    
                     ordenes.add(orden);
                     
                     
            
                 }
-                
+             
                 //SERVICIOS
                 
                 for (Orden orden : ordenes) {
@@ -446,11 +446,12 @@ public class Ceder implements ICeder{
                     
                     
                 }
+               
+               Consulta c = new Consulta(Integer.parseInt(rs.getString("numConsulta")),
+                                                            p, receta, ordenes, servicios);
                 
-               
-                consultas.add(new Consulta(Integer.parseInt(rs.getString("numConsulta")),
-                                                            p, receta, ordenes, servicios));
-               
+                consultass.add(c);
+                System.out.println(consultass);
                 
             }
             
@@ -458,7 +459,7 @@ public class Ceder implements ICeder{
             System.out.println(e.getLocalizedMessage());
         }
         
-        return consultas;
+        return consultass;
         
         
     }

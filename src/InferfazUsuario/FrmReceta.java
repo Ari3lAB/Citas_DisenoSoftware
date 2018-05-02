@@ -297,6 +297,7 @@ try{
     
             }catch(NullPointerException e){
                 JOptionPane.showMessageDialog(this, "ERROR: No se pudo conectar a la base de datos externa.");
+               
             }
         }
         controlFacade.setControl(new Control());  // TODO add your handling code here:

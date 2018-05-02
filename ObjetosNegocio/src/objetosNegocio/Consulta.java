@@ -27,9 +27,10 @@ public class Consulta
   public Consulta(int numeroConsulta, Paciente paciente, Receta receta, ArrayList<Orden> listaOrdenes, ArrayList<Servicio> listaServicios)
   {
     this.numeroConsulta = numeroConsulta;
-    this.paciente = new Paciente(paciente);
-    this.listaOrdenes = new ArrayList(listaOrdenes);
-    this.listaServicios = new ArrayList(listaServicios);
+    this.paciente = paciente;
+    this.listaOrdenes = listaOrdenes;
+    this.listaServicios = listaServicios;
+    this.receta = receta;
   }
   
   public Consulta(Consulta consulta) {
@@ -134,7 +135,10 @@ public class Consulta
   public boolean equals(Consulta consulta) {
     return numeroConsulta == consulta.getNumeroConsulta();
   }
-  
+  @Override
+  public String toString(){
+      return receta.getFecha().getTime()+" "+receta.getDianostico();
+  }
   @Override
   public int hashCode()
   {
