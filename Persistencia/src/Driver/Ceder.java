@@ -269,7 +269,7 @@ public class Ceder implements ICeder{
         
         
         String query = "SELECT *"
-                + "FROM Consultas"
+                + "FROM Consulta"
                 + "WHERE nssPaciente = "+nss;
         
         ArrayList<Consulta> consultas = new ArrayList<>();

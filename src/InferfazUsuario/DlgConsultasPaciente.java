@@ -21,8 +21,10 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
      */
     public DlgConsultasPaciente(java.awt.Frame parent, boolean modal,ArrayList<Consulta> consultas) {
         super(parent, modal);
+
+        initComponents();
         this.consultas = consultas;
-        
+        this.inicializarDatos();
         
     }
 
@@ -149,7 +151,7 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DlgConsultasPaciente dialog = new DlgConsultasPaciente(new javax.swing.JFrame(),false,consultas);
+                DlgConsultasPaciente dialog = new DlgConsultasPaciente(new javax.swing.JFrame(),true,consultas);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
