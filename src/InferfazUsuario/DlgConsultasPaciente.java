@@ -22,6 +22,7 @@ public class DlgConsultasPaciente extends javax.swing.JDialog {
     public DlgConsultasPaciente(java.awt.Frame parent, boolean modal,ArrayList<Consulta> consultas) {
         super(parent, modal);
         this.consultas = consultas;
+        initComponents();
         
         
     }
